@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3294438591733601468}
   - component: {fileID: 2059408957539160654}
-  - component: {fileID: 2778983877636881173}
+  - component: {fileID: -1199922049388829079}
+  - component: {fileID: 4095601292212185180}
   m_Layer: 0
-  m_Name: Collectable
+  m_Name: SMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +81,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5881472, y: 0.4159181}
   m_EdgeRadius: 0
---- !u!114 &2778983877636881173
+--- !u!114 &-1199922049388829079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,9 +90,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 124689888056130657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18aaff1664d6cb54bbaabba5a33d2df3, type: 3}
+  m_Script: {fileID: 11500000, guid: e4849834d19835540968819a0b02434f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPickup: 0
+--- !u!114 &4095601292212185180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124689888056130657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d27c063dbc81b3438ace16dd58496cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponName: SMG
+  _magazineSize: 30
+  _currentAmmo: 30
+  _leftOverAmmo: 90
+  _fireRate: 0.3
+  _reloadTime: 4
+  _damage: 25
+  _bulletSpeed: 15
+  _bullet: {fileID: 5517102115687532194, guid: 8aeb8aaef1c21d14bb80dac58bcf1b23, type: 3}
 --- !u!1 &5559279951886401989
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,14 +191,14 @@ SpriteRenderer:
   m_SortingLayerID: -973808355
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8945fc5db7dc6044db378f1382ece111, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5875, y: 0.38875}
+  m_Size: {x: 1.30875, y: 0.45}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

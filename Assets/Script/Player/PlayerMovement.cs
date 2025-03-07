@@ -4,19 +4,23 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float _moveSpeed;
-
-    [SerializeField]
-    private float _rotationSpeed;
-    [SerializeField]
-    private float _screenBorder;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _screenBorder;
+    [SerializeField] private CrosshairController _crosshairController;
     private Camera _camera;
+    private WeaponPickup _weaponPickup;
     private Rigidbody2D _rb;
     private Vector2 _moveInput;
     private Vector2 _smoothedMovement;
     private Vector2 _movementInputSmoothVelocity;
     private Animator _animator;
+    public bool _isAiming = false;
+    private const string _horizontal = "Horizontal";
+    private const string _vertical = "Vertical";
+    private const string _LastHorizontal = "LastHorizontal";
+    private const string _LastVertical = "LastVertical";
+    private Gun _gun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Awake()
@@ -24,35 +28,24 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _camera = Camera.main;
         _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
+        _crosshairController = FindAnyObjectByType<CrosshairController>();
+        _gun = GetComponentInChildren<Gun>();
     }
 
     void Update()
     {
-        Vector3 _mousePosition = Input.mousePosition;
-        _mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
-        Vector2 direction = new Vector2(_mousePosition.x - transform.position.x, _mousePosition.y - transform.position.y);
-        transform.up = direction;
+        _animator.SetFloat(_horizontal, _moveInput.x);
+        _animator.SetFloat(_vertical, _moveInput.y);
+        if(_moveInput != Vector2.zero){
+            _animator.SetFloat(_LastHorizontal, _moveInput.x);
+            _animator.SetFloat(_LastVertical, _moveInput.y);
+        }
 
     }
     void FixedUpdate()
     {
         // Smoothing movement
-        SetPlayerVelocity();
-        // RotateInDirectionOfInput();
-        // if(_rb.linearVelocity.magnitude > 0.1f)
-        // {
-        //     _animator.SetBool("IsRunning", true);
-        // }else
-        // {
-        //     _animator.SetBool("IsRunning", false);
-        // }
-
-        if(_moveInput != Vector2.zero){
-            _animator.SetBool("IsRunning", true);
-        }else
-        {
-            _animator.SetBool("IsRunning", false);
-        }        
+        SetPlayerVelocity();      
     }
 
     private void SetPlayerVelocity()
@@ -86,22 +79,39 @@ public class PlayerMovement : MonoBehaviour
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
         }
     }
-    private void RotateInDirectionOfInput(){
-        if(_moveInput != Vector2.zero){
-            // Vector3 direction = new Vector3(_smoothedMovement.x, _smoothedMovement.y, 0);
-
-            Quaternion targetRotation = Quaternion.LookRotation(transform.forward, _smoothedMovement);
-            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-            _rb.SetRotation(rotation);
-
-            // float targetAngle = Mathf.Atan2(_smoothedMovement.y, _smoothedMovement.x) * Mathf.Rad2Deg;
-            // _rb.rotation = Mathf.LerpAngle(_rb.rotation, targetAngle, _rotationSpeed * Time.deltaTime);
+    private void OnMove(InputValue input){
+        if(!_isAiming){
+            _moveInput = input.Get<Vector2>();
         }
-
     }
 
-    // Update is called once per frame
-    private void OnMove(InputValue input){
-        _moveInput = input.Get<Vector2>();
+    private void OnReload(InputValue input)
+    {
+        _gun.OnReload(input);
+    }
+    public void SetAiming(bool isAiming){
+        _isAiming = isAiming;
+        _crosshairController.SetCrosshairVisibility(true);
+        if(_isAiming){
+            _rb.linearVelocity = Vector2.zero;
+            _moveInput = Vector2.zero;
+        }
+    }
+
+    private void OnCollect(InputValue input){
+        if(input.isPressed){
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f);
+            foreach(Collider2D hit in hits){
+                WeaponPickup weaponPickup = hit.GetComponent<WeaponPickup>();
+                if(weaponPickup != null){
+                    TryPickupWeapon(weaponPickup);
+                }
+            }
+        }
+    }
+    public void TryPickupWeapon(WeaponPickup weaponPickup)
+    {
+        weaponPickup.IsPickup = true;
     }
 }
+

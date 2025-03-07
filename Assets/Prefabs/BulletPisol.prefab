@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 8574680310455482649}
   - component: {fileID: 2678996793981633027}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: BulletPisol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

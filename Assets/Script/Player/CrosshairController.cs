@@ -8,6 +8,7 @@ public class CrosshairController : MonoBehaviour
     [SerializeField] private float _expandOffset;
     [SerializeField] private float _expandSpeed;
     [SerializeField] private float _crosshairOffset;
+    private PlayerMovement _playerMovement;
     private Vector3[] _originalPosition;
     private Vector3[] _expandDirections = new Vector3[] {
         new Vector3(-1, 1, 0),
@@ -25,12 +26,28 @@ public class CrosshairController : MonoBehaviour
         }
         // Cursor.visible = false;
     }
+    void Start()
+    {
+        _playerMovement = FindAnyObjectByType<PlayerMovement>();
+    }
     void Update()
     {
         Vector2 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
         Vector2 offset = new Vector2(_crosshairOffset, -_crosshairOffset);
         transform.position = mousePos + offset;
         transform.position = Vector2.Lerp(transform.position, mousePos + offset, Time.deltaTime * 20);
+        
+        if(_playerMovement._isAiming){
+            SetCrosshairVisibility(true);
+        }else{
+            SetCrosshairVisibility(false);
+        }
+    }
+
+    public void SetCrosshairVisibility(bool isVisible){
+        for(int i = 0; i < _crosshairPartsTrasnform.Length; i++){
+            _crosshairPartsTrasnform[i].gameObject.SetActive(isVisible);
+        }
     }
 
     public void ExpandCrosshair()
@@ -75,5 +92,10 @@ public class CrosshairController : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public void SetReloadEffect(){
+        // Add reload effect here
+
     }
 }
