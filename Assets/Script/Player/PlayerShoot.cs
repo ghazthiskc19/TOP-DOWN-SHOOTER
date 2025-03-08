@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
@@ -7,9 +8,10 @@ using UnityEngine.InputSystem;
 public class    PlayerShoot : MonoBehaviour
 {
     [SerializeField] private GameObject _bulletPrefabs;
-    [SerializeField] private float _attackDelay;
-    public float _bulletDamage;
+    [SerializeField] private Sprite[] _spriteAimPistol;
+    private SpriteRenderer _spriteRenderer;
     private CrosshairController _crosshairController;
+    private Animator _animator;
     private Transform _gunOffset;
     private float timer;
     private bool _continousAttack;
@@ -19,18 +21,23 @@ public class    PlayerShoot : MonoBehaviour
     private WeaponHolder _weaponHolder;
     public TMP_Text _currentBullet;
     public TMP_Text _leftOverBullet;
+    private string _isAiming = "IsAiming";
     void Awake()
     {
         _gunOffset = transform.GetChild(1);
+        _spriteRenderer = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+        Debug.Log(_spriteRenderer.sprite);
         _crosshairController = GameObject.Find("Crosshair").GetComponent<CrosshairController>();
         _camera = Camera.main;
         _playerMovement = GetComponentInParent<PlayerMovement>();
         _weaponHolder = GetComponentInChildren<WeaponHolder>();
+        _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
     }
     void Update()
     {
         UpdateBulletText();
         if(_playerMovement._isAiming){
+            ChangeSpriteBasedOnMouse();
             if(_weaponHolder.GetCurrentWeapon()._isReloading){
                 _crosshairController.SetReloadEffect();
             }
@@ -46,6 +53,8 @@ public class    PlayerShoot : MonoBehaviour
             }else{
                 timer = 0;
             }
+        }else{
+        _animator.SetBool(_isAiming, false);
         }
     }
     void OnAttack(InputValue input){
@@ -77,5 +86,14 @@ public class    PlayerShoot : MonoBehaviour
         _currentBullet.text = $"{_weaponHolder.GetCurrentWeapon()._currentAmmo} /";
         _leftOverBullet.text = $"{_weaponHolder.GetCurrentWeapon()._leftOverAmmo}";
     }
+
+    private void ChangeSpriteBasedOnMouse(){
+        _animator.SetBool(_isAiming, true);
+        Vector3 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
+        _animator.SetFloat("Horizontal", direction.x);
+        _animator.SetFloat("Vertical", direction.y);
+    }
+
 
 }

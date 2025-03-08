@@ -4,7 +4,6 @@ public class WeaponPickup : MonoBehaviour
 {
     public bool IsPickup = false;
     private void OnTriggerStay2D(Collider2D collider)
-
     {
         PlayerMovement player = collider.gameObject.GetComponent<PlayerMovement>();
         if(player != null && IsPickup)
@@ -15,7 +14,6 @@ public class WeaponPickup : MonoBehaviour
                 if(_weaponHolder != null)
                 {
                     _weaponHolder.EquipWeapon(gameObject);
-                    // Destroy(gameObject);
                     IsPickup = false;
                 }
             }

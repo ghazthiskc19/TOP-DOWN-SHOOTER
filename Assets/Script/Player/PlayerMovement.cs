@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _screenBorder;
     [SerializeField] private CrosshairController _crosshairController;
     private Camera _camera;
-    private WeaponPickup _weaponPickup;
     private Rigidbody2D _rb;
     private Vector2 _moveInput;
     private Vector2 _smoothedMovement;
@@ -29,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
         _camera = Camera.main;
         _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
         _crosshairController = FindAnyObjectByType<CrosshairController>();
-        _gun = GetComponentInChildren<Gun>();
     }
 
     void Update()
@@ -40,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetFloat(_LastHorizontal, _moveInput.x);
             _animator.SetFloat(_LastVertical, _moveInput.y);
         }
-
+        _gun = GetComponentInChildren<Gun>();
     }
     void FixedUpdate()
     {
@@ -99,12 +97,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void OnCollect(InputValue input){
-        if(input.isPressed){
+        bool _hasPickup = false;
+        if(input.isPressed && !_hasPickup && !_gun._isReloading){
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f);
             foreach(Collider2D hit in hits){
-                WeaponPickup weaponPickup = hit.GetComponent<WeaponPickup>();
-                if(weaponPickup != null){
-                    TryPickupWeapon(weaponPickup);
+                if(hit.GetComponent<WeaponPickup>()){
+                    WeaponPickup weaponPickup = hit.GetComponent<WeaponPickup>();
+                    if(weaponPickup != null && !hit.transform.IsChildOf(transform)){
+                        TryPickupWeapon(weaponPickup);
+                        _hasPickup = true;
+                        // break;
+                    }
                 }
             }
         }

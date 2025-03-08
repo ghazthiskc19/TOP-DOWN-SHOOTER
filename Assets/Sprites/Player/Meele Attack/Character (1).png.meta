@@ -1,31 +1,133 @@
 fileFormatVersion: 2
-guid: 6d793e4a9751bc942850a1d1e4ef70a1
+guid: 478c4ed2a3f48f94488f0fae9ba2c86c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4343912660583212419
-    second: MC front&back-Sheet_0
+      213: -434333029212757583
+    second: Character (1)_0
   - first:
-      213: -8714861310942408541
-    second: MC front&back-Sheet_1
+      213: 1898633476403756698
+    second: Character (1)_1
   - first:
-      213: -3756605135158263945
-    second: MC front&back-Sheet_2
+      213: 1947377850393257940
+    second: Character (1)_2
   - first:
-      213: -4778337457295080769
-    second: MC front&back-Sheet_3
+      213: 9097144292248325331
+    second: Character (1)_3
   - first:
-      213: 4868730636194744805
-    second: MC front&back-Sheet_4
+      213: 8392568731132206389
+    second: Character (1)_4
   - first:
-      213: 182514905586584914
-    second: MC front&back-Sheet_5
+      213: 5852094938591256691
+    second: Character (1)_5
   - first:
-      213: -8763021787956746370
-    second: MC front&back-Sheet_6
+      213: -4885128908515560173
+    second: Character (1)_6
   - first:
-      213: 783923804724755165
-    second: MC front&back-Sheet_7
+      213: 4611293902495178011
+    second: Character (1)_7
+  - first:
+      213: 4640434637475909376
+    second: Character (1)_8
+  - first:
+      213: 4826666772037662826
+    second: Character (1)_9
+  - first:
+      213: 4894504902649866589
+    second: Character (1)_10
+  - first:
+      213: 6687660328177619223
+    second: Character (1)_11
+  - first:
+      213: 9002755619780444534
+    second: Character (1)_12
+  - first:
+      213: -3809823090286933091
+    second: Character (1)_13
+  - first:
+      213: 5733975064436536779
+    second: Character (1)_14
+  - first:
+      213: -8954913334100605220
+    second: Character (1)_15
+  - first:
+      213: -4995627583976454787
+    second: Character (1)_16
+  - first:
+      213: 2190670669034654429
+    second: Character (1)_17
+  - first:
+      213: 2980899205580369586
+    second: Character (1)_18
+  - first:
+      213: 7133225854160313034
+    second: Character (1)_19
+  - first:
+      213: -1402806478261767982
+    second: Character (1)_20
+  - first:
+      213: -1086293215714004994
+    second: Character (1)_21
+  - first:
+      213: 7221571048973101658
+    second: Character (1)_22
+  - first:
+      213: -5672212532057021085
+    second: Character (1)_23
+  - first:
+      213: 5639165571967051531
+    second: Character (1)_24
+  - first:
+      213: 3020370778683343258
+    second: Character (1)_25
+  - first:
+      213: 5564663007712539886
+    second: Character (1)_26
+  - first:
+      213: 514713256661709883
+    second: Character (1)_27
+  - first:
+      213: -2251624985189702954
+    second: Character (1)_28
+  - first:
+      213: 5547817021452310651
+    second: Character (1)_29
+  - first:
+      213: 5738168615306728906
+    second: Character (1)_30
+  - first:
+      213: 4451548580926414845
+    second: Character (1)_31
+  - first:
+      213: 1002994666973373608
+    second: Character (1)_32
+  - first:
+      213: 4800539424104510666
+    second: Character (1)_33
+  - first:
+      213: -4366028702254859633
+    second: Character (1)_34
+  - first:
+      213: 8113071689281139977
+    second: Character (1)_35
+  - first:
+      213: 582323050313225623
+    second: Character (1)_36
+  - first:
+      213: -6077474699901309021
+    second: Character (1)_37
+  - first:
+      213: -710319400718420360
+    second: Character (1)_38
+  - first:
+      213: -627294517989094801
+    second: Character (1)_39
+  - first:
+      213: 8613812023295330331
+    second: Character (1)_40
+  - first:
+      213: 3307396054595816067
+    second: Character (1)_41
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -121,177 +223,177 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MC front&back-Sheet_0
+      name: Character (1)_5
       rect:
         serializedVersion: 2
-        x: 9
-        y: 0
-        width: 14
-        height: 30
+        x: 129
+        y: 263
+        width: 23
+        height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d7a9d92437257b3c0800000000000000
-      internalID: -4343912660583212419
+      spriteID: 370e7964751d63150800000000000000
+      internalID: 5852094938591256691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC front&back-Sheet_1
+      name: Character (1)_6
       rect:
         serializedVersion: 2
-        x: 41
-        y: 0
-        width: 14
-        height: 31
+        x: 161
+        y: 263
+        width: 31
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3a09b7e9fc79e0780800000000000000
-      internalID: -8714861310942408541
+      spriteID: 31530f5e329843cb0800000000000000
+      internalID: -4885128908515560173
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC front&back-Sheet_2
+      name: Character (1)_9
       rect:
         serializedVersion: 2
-        x: 73
-        y: 0
-        width: 14
-        height: 30
+        x: 193
+        y: 263
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 77fbb7d688bdddbc0800000000000000
-      internalID: -3756605135158263945
+      spriteID: a687c7c3bd3cbf240800000000000000
+      internalID: 4826666772037662826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC front&back-Sheet_3
+      name: Character (1)_11
       rect:
         serializedVersion: 2
-        x: 105
-        y: 0
-        width: 14
-        height: 31
+        x: 225
+        y: 263
+        width: 24
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fb2cbf8366fefadb0800000000000000
-      internalID: -4778337457295080769
+      spriteID: 711df7fb2a75fcc50800000000000000
+      internalID: 6687660328177619223
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC front&back-Sheet_4
+      name: Character (1)_13
       rect:
         serializedVersion: 2
-        x: 137
-        y: 0
-        width: 14
-        height: 30
+        x: 263
+        y: 263
+        width: 24
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5e9037dc7b4319340800000000000000
-      internalID: 4868730636194744805
+      spriteID: d9bcd5ea51ac02bc0800000000000000
+      internalID: -3809823090286933091
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC front&back-Sheet_5
+      name: Character (1)_14
       rect:
         serializedVersion: 2
-        x: 169
-        y: 0
-        width: 14
-        height: 31
+        x: 287
+        y: 263
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 25dc3b1f65c688200800000000000000
-      internalID: 182514905586584914
+      spriteID: bc5ffa2f0fb239f40800000000000000
+      internalID: 5733975064436536779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC front&back-Sheet_6
+      name: Character (1)_16
       rect:
         serializedVersion: 2
-        x: 201
-        y: 0
-        width: 14
-        height: 30
+        x: 320
+        y: 263
+        width: 31
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e7764d1cc1e736680800000000000000
-      internalID: -8763021787956746370
+      spriteID: d75c0fa2e27fbaab0800000000000000
+      internalID: -4995627583976454787
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC front&back-Sheet_7
+      name: Character (1)_17
       rect:
         serializedVersion: 2
-        x: 233
-        y: 0
-        width: 14
-        height: 31
+        x: 360
+        y: 263
+        width: 23
+        height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dda77970c8e01ea00800000000000000
-      internalID: 783923804724755165
+      spriteID: dda8da7ed53d66e10800000000000000
+      internalID: 2190670669034654429
       vertices: []
       indices: 
       edges: []
@@ -300,7 +402,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: babc59a39c6ee9d4bbe431928a14c622
     internalID: 0
     vertices: []
     indices: 
@@ -310,14 +412,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MC front&back-Sheet_0: -4343912660583212419
-      MC front&back-Sheet_1: -8714861310942408541
-      MC front&back-Sheet_2: -3756605135158263945
-      MC front&back-Sheet_3: -4778337457295080769
-      MC front&back-Sheet_4: 4868730636194744805
-      MC front&back-Sheet_5: 182514905586584914
-      MC front&back-Sheet_6: -8763021787956746370
-      MC front&back-Sheet_7: 783923804724755165
+      Character (1)_11: 6687660328177619223
+      Character (1)_13: -3809823090286933091
+      Character (1)_14: 5733975064436536779
+      Character (1)_16: -4995627583976454787
+      Character (1)_17: 2190670669034654429
+      Character (1)_5: 5852094938591256691
+      Character (1)_6: -4885128908515560173
+      Character (1)_9: 4826666772037662826
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

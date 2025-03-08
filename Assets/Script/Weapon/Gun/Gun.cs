@@ -36,9 +36,11 @@ public class Gun : MonoBehaviour
         }
     }
     public virtual void Fire(){
+        _playerShoot = GetComponentInParent<PlayerShoot>();
         if(_currentAmmo > 0)
         {
-            _playerShoot.FireBullet(_bullet);
+            // if(_playerShoot != null)
+             _playerShoot.FireBullet(_bullet);
             _currentAmmo--;
         }
 

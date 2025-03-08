@@ -36,7 +36,7 @@ public class HealthController : MonoBehaviour
         }
         _currentHealth -= damageAmount; 
         OnHealthChanged.Invoke();
-        if(_currentHealth == 0){
+        if(_currentHealth <= 0 ){
             OnDied.Invoke();
             _animator.SetBool("IsDead", true);
         }else{

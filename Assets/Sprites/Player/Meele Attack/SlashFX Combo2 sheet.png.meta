@@ -1,13 +1,22 @@
 fileFormatVersion: 2
-guid: bb9a897375999fb4998f6e2ce96d781b
+guid: a07eff11795cfcd4b8c0912a36809294
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4745643049510711697
-    second: MC front&back 1_0
+      213: -7640683765325140011
+    second: SlashFX Combo2 sheet_0
   - first:
-      213: -5659040717292889169
-    second: MC front&back 1_1
+      213: -961713475803556768
+    second: SlashFX Combo2 sheet_1
+  - first:
+      213: 4144088156997141118
+    second: SlashFX Combo2 sheet_2
+  - first:
+      213: -6526086657560420439
+    second: SlashFX Combo2 sheet_3
+  - first:
+      213: 7785401795572418337
+    second: SlashFX Combo2 sheet_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MC front&back 1_0
+      name: SlashFX Combo2 sheet_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 0
-        width: 14
-        height: 30
+        x: 46
+        y: 59
+        width: 60
+        height: 43
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +127,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f6ecc1b3ac6142eb0800000000000000
-      internalID: -4745643049510711697
+      spriteID: 5df63b6f896d6f590800000000000000
+      internalID: -7640683765325140011
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MC front&back 1_1
+      name: SlashFX Combo2 sheet_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 0
-        width: 14
-        height: 30
+        x: 197
+        y: 58
+        width: 38
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +149,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fab1944537c0771b0800000000000000
-      internalID: -5659040717292889169
+      spriteID: 064d50b60be47a2f0800000000000000
+      internalID: -961713475803556768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlashFX Combo2 sheet_2
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 58
+        width: 38
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e72c7b3f832c28930800000000000000
+      internalID: 4144088156997141118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlashFX Combo2 sheet_3
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 58
+        width: 38
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9afd1baf2ceae65a0800000000000000
+      internalID: -6526086657560420439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlashFX Combo2 sheet_4
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 58
+        width: 38
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12748ca2fad4b0c60800000000000000
+      internalID: 7785401795572418337
       vertices: []
       indices: 
       edges: []

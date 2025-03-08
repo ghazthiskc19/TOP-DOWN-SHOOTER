@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     private Camera _camera;
     private PlayerShoot _player;
+    private Gun _gun;
 
     void Awake()
     {
@@ -14,13 +15,14 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         DestroyWhenOffScreen();
+        _gun = _player.GetComponentInChildren<Gun>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<EnemyMovement>()){
             var healthController = collision.gameObject.GetComponent<HealthController>();
-            healthController.TakeDamage(_player._bulletDamage);
+            healthController.TakeDamage(_gun._damage);
             Destroy(collision.gameObject, .4f);
         }
     }
