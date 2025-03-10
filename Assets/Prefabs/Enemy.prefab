@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8732257131714844525}
   - component: {fileID: 5102356001922579415}
   - component: {fileID: 5378925079990691011}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,9 +127,9 @@ GameObject:
   - component: {fileID: -3343522608930940707}
   - component: {fileID: 7953259506995733991}
   - component: {fileID: 7574807034235678920}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,7 +176,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1850364268589342659
 MonoBehaviour:
   m_ObjectHideFlags: 0

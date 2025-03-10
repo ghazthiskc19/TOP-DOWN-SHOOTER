@@ -17,14 +17,11 @@ public class WeaponHolder : MonoBehaviour
             _spriteShowCurrentWeapon.sprite = currentGun.GetComponentInChildren<SpriteRenderer>().sprite;
             _spriteShowCurrentWeapon.preserveAspect = true;
         }
-        // DropWeapon();
     }
 
     public void EquipWeapon(GameObject weaponPickUp)
     {
         _spriteShowCurrentWeapon = GameObject.Find("showCurrentWeapon").GetComponent<Image>();
-        // currentWeapon = Instantiate(weaponPickUp, transform.position, Quaternion.identity, transform);
-        // currentWeapon.transform.localPosition = Vector3.zero;
 
         if(currentWeapon != null){
             DropWeapon();

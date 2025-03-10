@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MeeleAttack",
+                    "type": "Button",
+                    "id": "5939e898-c0a1-47c2-aeb0-e2fb8169a293",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -348,17 +357,6 @@
                 },
                 {
                     "name": "",
-                    "id": "2e88733e-701b-4d98-a4d4-1db0e51d6697",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "cbac6039-9c09-46a1-b5f2-4e5124ccb5ed",
                     "path": "<Keyboard>/2",
                     "interactions": "",
@@ -526,7 +524,7 @@
                     "name": "",
                     "id": "ef102393-5fad-4437-81aa-32c73640e87f",
                     "path": "<Keyboard>/r",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Reload",
@@ -541,6 +539,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Collect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e674d938-daac-4448-b87a-cb98620d08ce",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MeeleAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

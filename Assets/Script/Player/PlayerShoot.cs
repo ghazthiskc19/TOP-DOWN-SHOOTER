@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,9 +10,15 @@ public class    PlayerShoot : MonoBehaviour
 {
     [SerializeField] private GameObject _bulletPrefabs;
     [SerializeField] private Sprite[] _spriteAimPistol;
+    [SerializeField] private LayerMask _enemyLayer;
+    public Vector2 MeeleSize = new Vector2(1.5f, 1.0f);
+    public float MeeleRange = 1.0f;
+    public float MeeleDuration = 1f;
+    public float MeeleDamage = 30f;
     private SpriteRenderer _spriteRenderer;
     private CrosshairController _crosshairController;
     private Animator _animator;
+    private Animator _meeleAnimator;
     private Transform _gunOffset;
     private float timer;
     private bool _continousAttack;
@@ -22,6 +29,7 @@ public class    PlayerShoot : MonoBehaviour
     public TMP_Text _currentBullet;
     public TMP_Text _leftOverBullet;
     private string _isAiming = "IsAiming";
+    private int slashLayerIndex;
     void Awake()
     {
         _gunOffset = transform.GetChild(1);
@@ -32,6 +40,8 @@ public class    PlayerShoot : MonoBehaviour
         _playerMovement = GetComponentInParent<PlayerMovement>();
         _weaponHolder = GetComponentInChildren<WeaponHolder>();
         _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
+        slashLayerIndex = _animator.GetLayerIndex("Slash Layer");
+        _meeleAnimator = transform.GetChild(1).gameObject.GetComponent<Animator>();
     }
     void Update()
     {
@@ -74,7 +84,7 @@ public class    PlayerShoot : MonoBehaviour
         
         Vector3 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
 
         GameObject bullet = Instantiate(_bulletPrefabs, _gunOffset.position, Quaternion.Euler(0, 0, angle));
         bullet.transform.up = direction;
@@ -95,5 +105,50 @@ public class    PlayerShoot : MonoBehaviour
         _animator.SetFloat("Vertical", direction.y);
     }
 
+    private void OnMeeleAttack(InputValue input){
+        if(input.isPressed && !_playerMovement._isMeeleAttack && !_playerMovement._isAiming){
+            StartCoroutine(CoroutineMeeleAttack(MeeleDuration));
+        }
+    }
+    private IEnumerator CoroutineMeeleAttack(float meeleDuration){
+        _playerMovement._isMeeleAttack = true;
+        _meeleAnimator.SetBool("IsMeeleAttack", _playerMovement._isMeeleAttack);
+        Vector3 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (mousePos - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
+        _meeleAnimator.SetFloat("Horizontal", direction.x);
+        _meeleAnimator.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        Vector2 attackCenter = (Vector2) transform.position + direction * MeeleRange;
+        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackCenter, MeeleSize, angle, _enemyLayer);
+
+        foreach(Collider2D enemy in hitEnemies)
+        {
+            if(enemy.CompareTag("Enemy"))
+            {
+                HealthController healthController = enemy.GetComponent<HealthController>();
+                healthController.TakeDamage(MeeleDamage);
+                Destroy(enemy.gameObject, 0.4f);
+            }
+        }
+        yield return new WaitForSeconds(meeleDuration);
+        _playerMovement._isMeeleAttack = false;
+        _meeleAnimator.SetBool("IsMeeleAttack", _playerMovement._isMeeleAttack);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_camera == null) return;
+
+        Vector3 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 attackDirection = (mousePos - transform.position).normalized;
+        Vector2 attackCenter = (Vector2)transform.position + attackDirection * MeeleRange;
+
+        float attackAngle = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
+
+        Gizmos.color = Color.red;
+        Gizmos.matrix = Matrix4x4.TRS(attackCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, MeeleSize);
+    }
 }

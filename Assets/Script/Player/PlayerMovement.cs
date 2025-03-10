@@ -10,11 +10,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CrosshairController _crosshairController;
     private Camera _camera;
     private Rigidbody2D _rb;
-    private Vector2 _moveInput;
+    public Vector2 _moveInput {get; private set;}
     private Vector2 _smoothedMovement;
     private Vector2 _movementInputSmoothVelocity;
     private Animator _animator;
     public bool _isAiming = false;
+    public  bool _isMeeleAttack = false;
     private const string _horizontal = "Horizontal";
     private const string _vertical = "Vertical";
     private const string _LastHorizontal = "LastHorizontal";
@@ -32,8 +33,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        _animator.SetFloat(_horizontal, _moveInput.x);
-        _animator.SetFloat(_vertical, _moveInput.y);
+        float velX = _rb.linearVelocityX;
+        float velY = _rb.linearVelocityY;
+        if (Mathf.Abs(velX) < 0.01f) velX = 0f;
+        if (Mathf.Abs(velY) < 0.01f) velY = 0f;
+
+        _animator.SetFloat(_horizontal, velX);
+        _animator.SetFloat(_vertical, velY);
+
         if(_moveInput != Vector2.zero){
             _animator.SetFloat(_LastHorizontal, _moveInput.x);
             _animator.SetFloat(_LastVertical, _moveInput.y);
@@ -55,7 +62,12 @@ public class PlayerMovement : MonoBehaviour
             0.1f
         );
         // Perubahan rb mending simpen disini
-        _rb.linearVelocity = _smoothedMovement * _moveSpeed;
+        if(!_isAiming && !_isMeeleAttack){
+            _rb.linearVelocity = _smoothedMovement * _moveSpeed;
+        }else{
+            _rb.linearVelocity = Vector2.zero;
+        }
+
         HandlePlayerWhenGoingOutside();
     }
 
@@ -78,9 +90,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     private void OnMove(InputValue input){
-        if(!_isAiming){
-            _moveInput = input.Get<Vector2>();
-        }
+        _moveInput = input.Get<Vector2>();
     }
 
     private void OnReload(InputValue input)
@@ -92,7 +102,6 @@ public class PlayerMovement : MonoBehaviour
         _crosshairController.SetCrosshairVisibility(true);
         if(_isAiming){
             _rb.linearVelocity = Vector2.zero;
-            _moveInput = Vector2.zero;
         }
     }
 
@@ -106,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
                     if(weaponPickup != null && !hit.transform.IsChildOf(transform)){
                         TryPickupWeapon(weaponPickup);
                         _hasPickup = true;
-                        // break;
                     }
                 }
             }
