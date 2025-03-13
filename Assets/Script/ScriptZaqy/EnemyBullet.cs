@@ -18,10 +18,9 @@ public class EnemyBullet : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<PlayerMovement>()){
+        if(collision.gameObject.CompareTag("Player")){
             var healthController = collision.gameObject.GetComponent<HealthController>();
             healthController.TakeDamage(enemy.bulletDamage);
-            // Destroy(collision.gameObject, .4f);
         }
     }
 

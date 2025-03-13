@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7140424814198007278}
   - component: {fileID: 2962060826675464101}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 7785339784260571327}
   - component: {fileID: 2861654757138443781}
   - component: {fileID: 8574680310455482649}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

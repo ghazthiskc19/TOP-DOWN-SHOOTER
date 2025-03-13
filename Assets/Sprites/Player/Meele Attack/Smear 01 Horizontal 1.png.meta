@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Smear 01 Horizontal 1_0: 4757251415096693921
+      Smear 01 Horizontal 1_1: -1073189902953685456
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

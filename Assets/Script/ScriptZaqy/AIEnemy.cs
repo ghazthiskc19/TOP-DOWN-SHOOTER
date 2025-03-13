@@ -5,26 +5,33 @@ using Pathfinding;
 
 public class AIEnemy : Enemy
 {
+    [SerializeField] private LayerMask _playerLayer;
+    [SerializeField] private GameObject _bulletPrefabs;
     public EnemyAnimControl enemyAnimation;
     public RayCast enemyRayCast;
+    public Vector2 MeeleSize = new Vector2(1.5f, 1.0f);
+    public float MeeleRange = 1.0f;
+    public float timer;
+    public float timerSearchPlayer;
+    public float timerLostPlayer;
     Path path;
     Seeker seeker;
     Rigidbody2D rb;
     Animator anim;
+    // HealthController health;
     int currentWaypoint;
-    float timer;
     bool _Return;
     bool trackPlayer;
     bool idle;
     Vector2 direction = new Vector2 (1f, 1f);
-    // bool reachedEndOfPath = false;
-    [SerializeField] private GameObject _bulletPrefabs;
+    
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        timerLostPlayer = timerSearchPlayer;
         timer = _timeBetweenAttack;
         nextTarget = target.Length - 1;
+        // health = GetComponent<HealthController>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -38,6 +45,9 @@ public class AIEnemy : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
+        // if(health._currentHealth <= 0){
+        //     goDie();
+        // }
         if(trackPlayer){
             enemyRayCast.rayForChase(target);
         }
@@ -49,12 +59,16 @@ public class AIEnemy : Enemy
             return;
         }
         if(nextTarget == 0){
-            
-            if(path.vectorPath.Count < 10){
+            float distancePlayer = Vector2.Distance(target[0].position, transform.position);
+            if(distancePlayer < attackRange && enemyRayCast.ray.collider.gameObject.CompareTag("Player")){
                 idle = true;
                 anim.SetBool("idle", true);
-                if(enemyRayCast.ray.collider.gameObject.CompareTag("Player")){
+                enemyAnimation.animControl(target[0].position - transform.position);
+                if(enemyRayCast.ray.collider.gameObject.CompareTag("Player") && !meeleEnemy){
                     FireBullet();
+                }
+                else if(enemyRayCast.ray.collider.gameObject.CompareTag("Player") && meeleEnemy){
+                    CoroutineMeeleAttack(_timeBetweenAttack);
                 }
             }
             else{
@@ -62,32 +76,30 @@ public class AIEnemy : Enemy
                 anim.SetBool("idle", false);
             }
 
-            if(path.vectorPath.Count > 12){
+            if(timerLostPlayer <= 0){
                 lostPlayer();
                 StartCoroutine(goIdle(3f));
             }
         }
         
         if(currentWaypoint >= path.vectorPath.Count){
-            // reachedEndOfPath = true;
             StartCoroutine(goIdle(idleDuration));
             targetBerikutnya();
             UpdatePath();
         }
-        // else{
-        //     reachedEndOfPath = false;
-        // }
 
         if(!idle || (trackPlayer && !enemyRayCast.ray.collider.gameObject.CompareTag("Player"))){
             goWalk();
         }
         
-
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-
-        if(distance < nextWaypointDistance){
-            currentWaypoint++;
+        if (path.vectorPath != null && currentWaypoint >= 0 && currentWaypoint < path.vectorPath.Count){
+            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            if(distance < nextWaypointDistance){
+                currentWaypoint++;
+            }
         }
+
+        
     }
     void goWalk(){
         direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -116,16 +128,16 @@ public class AIEnemy : Enemy
             _Return = !_Return; // Jika mencapai akhir, balik arah
         }
 
-        // Update nextTarget berdasarkan arah patroli
-        if (!_Return)
+        nextTarget = Mathf.Clamp(nextTarget, 0, target.Length - 1);
+        if (_Return)
         {
-            nextTarget++; // Maju ke titik berikutnya
+            nextTarget--; // Mundur ke titik berikutnya
         }
         else
         {
-            nextTarget--; // Mundur ke titik sebelumnya
+            nextTarget++; // Maju ke titik sebelumnya
         }
-        // nextTarget = Mathf.Clamp(nextTarget, 0, target.Length - 1);
+        nextTarget = Mathf.Clamp(nextTarget, 0, target.Length - 1);
     }
 
     public IEnumerator goIdle(float duration){
@@ -136,6 +148,7 @@ public class AIEnemy : Enemy
         idle = false;
     }
     public void foundPlayer(){
+        timerLostPlayer = 3f;
         trackPlayer = true;
         anim.SetBool("idle", false);
         idle = false;
@@ -164,4 +177,52 @@ public class AIEnemy : Enemy
         Rigidbody2D _rbBullet = enemyBullet.GetComponent<Rigidbody2D>();
         _rbBullet.linearVelocity = _bulletSpeed / 2 * (Vector2)(target[0].position - transform.position);
     }
+
+    public void goDie(){
+        Destroy(gameObject);
+    }
+
+    private void CoroutineMeeleAttack(float AttackDuration)
+    {
+        timer -= Time.deltaTime;
+        if( timer < 0){
+            timer = _timeBetweenAttack;
+        }
+        else{
+            return;
+        }
+        Vector2 meeleDirection = (target[0].position - transform.position).normalized;
+        float angle = Mathf.Atan2(meeleDirection.y, meeleDirection.x) * Mathf.Rad2Deg;
+
+        Vector2 attackCenter = (Vector2)transform.position + meeleDirection * MeeleRange;
+        Collider2D[] players = Physics2D.OverlapBoxAll(attackCenter, MeeleSize, angle, _playerLayer);
+
+        foreach (Collider2D player in players)
+        {
+            if (player.gameObject.CompareTag("Player"))
+            {
+                havedoneattack = true;
+                Debug.Log("Player terkena serangan melee!");
+                HealthController healthController = player.GetComponent<HealthController>();
+                if (healthController != null)
+                {
+                    healthController.TakeDamage(bulletDamage);
+                }
+            }
+        }
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector2 attackDirection = (target[0].position - transform.position).normalized;
+        Vector2 attackCenter = (Vector2)transform.position + attackDirection * MeeleRange;
+
+        float attackAngle = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
+
+        Gizmos.color = Color.red;
+        Gizmos.matrix = Matrix4x4.TRS(attackCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, MeeleSize);
+    }
+
 }

@@ -609,7 +609,27 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Explosion Artillery-Sheet_0: 2535027939613646649
+      Explosion Artillery-Sheet_1: 7319238125455327031
+      Explosion Artillery-Sheet_10: 3185168817337691099
+      Explosion Artillery-Sheet_11: 7511307846421881169
+      Explosion Artillery-Sheet_12: 4685454119546083885
+      Explosion Artillery-Sheet_13: 3868349496479454760
+      Explosion Artillery-Sheet_14: -9123157611099680800
+      Explosion Artillery-Sheet_15: 439355096392320032
+      Explosion Artillery-Sheet_16: 4686533688525643570
+      Explosion Artillery-Sheet_17: -7454360305358217991
+      Explosion Artillery-Sheet_18: 3756001660322177422
+      Explosion Artillery-Sheet_19: 3559175833420261609
+      Explosion Artillery-Sheet_2: 3426747834620718298
+      Explosion Artillery-Sheet_3: -4829525123580419421
+      Explosion Artillery-Sheet_4: -6847131674546805525
+      Explosion Artillery-Sheet_5: 5733545925095551367
+      Explosion Artillery-Sheet_6: -4727084914002081961
+      Explosion Artillery-Sheet_7: -838422035161400107
+      Explosion Artillery-Sheet_8: 4505540949122384680
+      Explosion Artillery-Sheet_9: 4776971677317395063
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
