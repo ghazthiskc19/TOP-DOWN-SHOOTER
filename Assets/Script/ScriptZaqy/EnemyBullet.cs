@@ -22,6 +22,10 @@ public class EnemyBullet : MonoBehaviour
             var healthController = collision.gameObject.GetComponent<HealthController>();
             healthController.TakeDamage(enemy.bulletDamage);
         }
+        if(collision.gameObject.CompareTag("Obstacle")){
+             Destroy(gameObject);
+        }
+       
     }
 
     void DestroyWhenOffScreen(){

@@ -7,6 +7,7 @@ public class AIEnemy : Enemy
 {
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private GameObject _bulletPrefabs;
+    [SerializeField] private GameObject _weaponPrefabs;
     public EnemyAnimControl enemyAnimation;
     public RayCast enemyRayCast;
     public Vector2 MeeleSize = new Vector2(1.5f, 1.0f);
@@ -14,6 +15,7 @@ public class AIEnemy : Enemy
     public float timer;
     public float timerSearchPlayer;
     public float timerLostPlayer;
+    public bool trackPlayer;
     Path path;
     Seeker seeker;
     Rigidbody2D rb;
@@ -21,7 +23,6 @@ public class AIEnemy : Enemy
     // HealthController health;
     int currentWaypoint;
     bool _Return;
-    bool trackPlayer;
     bool idle;
     Vector2 direction = new Vector2 (1f, 1f);
     
@@ -148,7 +149,7 @@ public class AIEnemy : Enemy
         idle = false;
     }
     public void foundPlayer(){
-        timerLostPlayer = 3f;
+        timerLostPlayer = timerSearchPlayer + 1;
         trackPlayer = true;
         anim.SetBool("idle", false);
         idle = false;
@@ -171,15 +172,18 @@ public class AIEnemy : Enemy
         else{
             return;
         }
-        GameObject enemyBullet = Instantiate(_bulletPrefabs, transform.position, transform.rotation);
+        GameObject enemyBullet = Instantiate(_bulletPrefabs, transform.position, Quaternion.LookRotation(Vector3.forward, target[0].position - transform.position));
         var bullet = enemyBullet.GetComponent<EnemyBullet>();
         bullet.enemy = GetComponent<AIEnemy>();
         Rigidbody2D _rbBullet = enemyBullet.GetComponent<Rigidbody2D>();
-        _rbBullet.linearVelocity = _bulletSpeed / 2 * (Vector2)(target[0].position - transform.position);
+        _rbBullet.linearVelocity = (target[0].position - transform.position).normalized * _bulletSpeed;
     }
 
     public void goDie(){
         Destroy(gameObject);
+    }
+    public void dropWeapon(){
+        GameObject weapon = Instantiate(_weaponPrefabs, transform.position, transform.rotation);
     }
 
     private void CoroutineMeeleAttack(float AttackDuration)
