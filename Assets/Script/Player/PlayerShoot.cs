@@ -20,9 +20,10 @@ public class    PlayerShoot : MonoBehaviour
     private Animator _animator;
     private Animator _meeleAnimator;
     private Transform _gunOffset;
+    private Gun _gun;
     private float timer;
     private bool _continousAttack;
-    private bool _fireSingle;
+    private bool _canShoot;
     private Camera _camera;
     private PlayerMovement _playerMovement;
     private WeaponHolder _weaponHolder;
@@ -45,23 +46,23 @@ public class    PlayerShoot : MonoBehaviour
     }
     void Update()
     {
+        if(_weaponHolder.GetCurrentWeapon() != null){
+            _gun = _weaponHolder.GetCurrentWeapon();
+        }
         UpdateBulletText();
-        if(_playerMovement._isAiming){
+        if(_playerMovement._isAiming ){
             ChangeSpriteBasedOnMouse();
-            if(_weaponHolder.GetCurrentWeapon()._isReloading){
-                _crosshairController.SetReloadEffect();
+            if(_continousAttack && !_gun._isReloading && _canShoot){
+                _crosshairController.ExpandCrosshair();
+                _weaponHolder.GetCurrentWeapon().Fire();
+                _crosshairController.ResetCrosshair();
+                timer = _weaponHolder.GetCurrentWeapon()._fireRate;
+                _canShoot = false;
             }
-            if(_continousAttack || _fireSingle){
-                    timer -= Time.deltaTime;
-                if( timer < 0){
-                    _crosshairController.ExpandCrosshair();
-                    _weaponHolder.GetCurrentWeapon().Fire();
-                    _crosshairController.ResetCrosshair();
-                    timer = _weaponHolder.GetCurrentWeapon()._fireRate;
-                    _fireSingle = false;
-                }
-            }else{
-                timer = 0;
+
+            if(!_canShoot){
+                timer -= Time.deltaTime;
+                if(timer < 0) _canShoot = true;
             }
         }else{
         _animator.SetBool(_isAiming, false);
@@ -70,9 +71,6 @@ public class    PlayerShoot : MonoBehaviour
     void OnAttack(InputValue input){
         if(!_playerMovement._isAiming) return;
         _continousAttack = input.isPressed;
-        if(input.isPressed){
-            _fireSingle = true;
-        }
     }
     void OnAim(InputValue input){
         _playerMovement._isAiming = !_playerMovement._isAiming;
@@ -93,6 +91,13 @@ public class    PlayerShoot : MonoBehaviour
     }
     public void UpdateBulletText()
     {
+        if(_gun._currentAmmo == 0){
+            _currentBullet.color = Color.red;
+            _leftOverBullet.color = Color.red;
+        }else{
+            _currentBullet.color = Color.white;
+            _leftOverBullet.color = Color.white;
+        }
         _currentBullet.text = $"{_weaponHolder.GetCurrentWeapon()._currentAmmo} /";
         _leftOverBullet.text = $"{_weaponHolder.GetCurrentWeapon()._leftOverAmmo}";
     }

@@ -15,6 +15,7 @@ public class WeaponHolder : MonoBehaviour
             currentWeapon.GetComponentInChildren<SpriteRenderer>().enabled = false;
             _spriteShowCurrentWeapon = GameObject.Find("showCurrentWeapon").GetComponent<Image>();
             _spriteShowCurrentWeapon.sprite = currentGun.GetComponentInChildren<SpriteRenderer>().sprite;
+            Debug.Log(currentGun.GetComponentInChildren<SpriteRenderer>().sprite);
             _spriteShowCurrentWeapon.preserveAspect = true;
         }
     }
@@ -22,14 +23,12 @@ public class WeaponHolder : MonoBehaviour
     public void EquipWeapon(GameObject weaponPickUp)
     {
         _spriteShowCurrentWeapon = GameObject.Find("showCurrentWeapon").GetComponent<Image>();
-
         if(currentWeapon != null){
             DropWeapon();
         }
         currentWeapon = weaponPickUp;
         currentWeapon.transform.SetParent(transform);
         currentWeapon.transform.localPosition = Vector3.zero;
-
         currentGun = currentWeapon.GetComponent<Gun>();
         _spriteShowCurrentWeapon.sprite = currentGun.GetComponentInChildren<SpriteRenderer>().sprite;
         _spriteShowCurrentWeapon.preserveAspect = true;
@@ -46,5 +45,6 @@ public class WeaponHolder : MonoBehaviour
     {
         currentWeapon.transform.SetParent(null);
         currentWeapon.GetComponentInChildren<SpriteRenderer>().enabled = true;
+
     }
 }

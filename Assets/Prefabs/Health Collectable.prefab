@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2059408957539160654, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
       propertyPath: m_Size.y
-      value: 0.36306682
+      value: 0.5711477
       objectReference: {fileID: 0}
     - target: {fileID: 2059408957539160654, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
       propertyPath: m_Offset.x
@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2059408957539160654, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
       propertyPath: m_Offset.y
-      value: -0.008765027
+      value: -0.059107184
       objectReference: {fileID: 0}
     - target: {fileID: 2079750898956633563, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
       propertyPath: m_Size.x
@@ -39,14 +39,38 @@ PrefabInstance:
     - target: {fileID: 2079750898956633563, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5482971d57314b94087e863e528a5f1f, type: 3}
+      objectReference: {fileID: 965360322618789697, guid: 45a309c76ca991f4ba5c4ccea8c08278, type: 3}
     - target: {fileID: 2079750898956633563, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2778983877636881173, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
+      propertyPath: QTECalls.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2778983877636881173, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
+      propertyPath: QTECalls.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2778983877636881173, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
+      propertyPath: QTECalls.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2778983877636881173, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
+      propertyPath: QTECalls.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: startEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 2778983877636881173, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
+      propertyPath: QTECalls.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QTEManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2778983877636881173, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
+      propertyPath: QTECalls.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: QTEEvent, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3294438591733601468, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.92
       objectReference: {fileID: 0}
     - target: {fileID: 3294438591733601468, guid: 19718ea73226fa3438378b4a90941aa5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -114,3 +138,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthAmount: 10
+  _textCollectable: {fileID: 586709182859664669, guid: 89e58190fa99e724ba4100b0f8a67bb9, type: 3}

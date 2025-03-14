@@ -2,10 +2,8 @@ using UnityEngine;
 using UnityEngine.Events;
 public class HealthController : MonoBehaviour
 {
-    [SerializeField]
-    private float _currentHealth;
-    [SerializeField]
-    private float _maxHealth;
+    [SerializeField] private float _currentHealth;
+    [SerializeField] private float _maxHealth;
     private Animator _animator;
     void Awake()
     {
@@ -35,6 +33,14 @@ public class HealthController : MonoBehaviour
             return;
         }
         _currentHealth -= damageAmount; 
+        if(GetComponent<PlayerMovement>()){
+            HealthBarUI[] healthBarUI = FindObjectsByType<HealthBarUI>(FindObjectsSortMode.None);
+            foreach (HealthBarUI healthbar in healthBarUI){
+                if(healthbar.gameObject.name == "Health Bar"){
+                    healthbar.UpadteHealthBar(this);
+                }
+            }
+        }
         OnHealthChanged.Invoke();
         if(_currentHealth <= 0 ){
             OnDied.Invoke();
@@ -50,9 +56,18 @@ public class HealthController : MonoBehaviour
         }
 
         _currentHealth += amountToAdd;
+        if(GetComponent<PlayerMovement>()){
+            HealthBarUI[] healthBarUI = FindObjectsByType<HealthBarUI>(FindObjectsSortMode.None);
+            foreach (HealthBarUI healthbar in healthBarUI){
+                if(healthbar.gameObject.name == "Health Bar"){
+                    healthbar.UpadteHealthBar(this);
+                }
+            }
+        }
         OnHealthChanged.Invoke();
         if(_currentHealth >= _maxHealth){
             _currentHealth = _maxHealth;
         }
     }
+
 }
