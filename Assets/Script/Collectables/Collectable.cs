@@ -1,23 +1,27 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Collectable : MonoBehaviour
 {
     private ICollectableBehaviour _colletableBehaviour;
+    private QTEManager _QTEManager;
+    private bool collect = false;
+    public UnityEvent QTECalls;
     private void Awake()
     {
         _colletableBehaviour = GetComponent<ICollectableBehaviour>();
-            if(_colletableBehaviour == null)
-    {
-        Debug.LogError("Component ICollectableBehaviour not found di game object: " + gameObject.name);
-    }
+        _QTEManager = FindAnyObjectByType<QTEManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var player = collision.GetComponent<PlayerMovement>();
-        if(player != null){
+        if(player != null && !collect){
+            collect = true;
             _colletableBehaviour.OnCollected(player.gameObject);
-            Destroy(gameObject);
+            gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            QTECalls.Invoke();
+            Destroy(gameObject, 1);
         }    
     }
 }

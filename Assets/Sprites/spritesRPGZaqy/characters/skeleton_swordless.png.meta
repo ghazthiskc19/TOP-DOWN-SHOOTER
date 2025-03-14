@@ -1884,7 +1884,78 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      skeleton_swordless_0: 7216552541025846149
+      skeleton_swordless_1: -525865907850722492
+      skeleton_swordless_10: -3979097204708789349
+      skeleton_swordless_11: 3487628272418651465
+      skeleton_swordless_12: 5430099220856989996
+      skeleton_swordless_13: -6208181545025984413
+      skeleton_swordless_14: -6126096003576525474
+      skeleton_swordless_15: -3033056498096802457
+      skeleton_swordless_16: -8319708903692255659
+      skeleton_swordless_17: 6076836398102501047
+      skeleton_swordless_18: 2672702462008635822
+      skeleton_swordless_19: -444671890379852531
+      skeleton_swordless_2: -2130739768461655819
+      skeleton_swordless_20: 9021876955827668794
+      skeleton_swordless_21: -3558102249154180746
+      skeleton_swordless_22: 3620740623390660639
+      skeleton_swordless_23: 265354347759048461
+      skeleton_swordless_24: 7921937151869220942
+      skeleton_swordless_25: -382572050276971059
+      skeleton_swordless_26: 7842948347925674220
+      skeleton_swordless_27: 6355955033451678637
+      skeleton_swordless_28: 7757386476688916398
+      skeleton_swordless_29: -1588938255575773161
+      skeleton_swordless_3: 6464113849495325492
+      skeleton_swordless_30: -1593363358340820844
+      skeleton_swordless_31: 3502266064530269244
+      skeleton_swordless_32: 7305851066201099257
+      skeleton_swordless_33: -4062423709399968019
+      skeleton_swordless_34: 3939842258284071140
+      skeleton_swordless_35: -5654038729313094222
+      skeleton_swordless_36: 8230917228863135926
+      skeleton_swordless_37: 9109049482620911196
+      skeleton_swordless_38: -2608365065926475578
+      skeleton_swordless_39: 2099799619539331865
+      skeleton_swordless_4: 5209453661821704434
+      skeleton_swordless_40: -6293369711262176725
+      skeleton_swordless_41: -8462183398273364221
+      skeleton_swordless_42: -8583749804078006382
+      skeleton_swordless_43: 2219765770886004093
+      skeleton_swordless_44: 2488079971342116574
+      skeleton_swordless_45: -7853528981824560928
+      skeleton_swordless_46: -4698567963618198706
+      skeleton_swordless_47: -5623421502299338464
+      skeleton_swordless_48: -3351331414657390913
+      skeleton_swordless_49: 570771610702002344
+      skeleton_swordless_5: 829818830871566483
+      skeleton_swordless_50: -8770336757136242092
+      skeleton_swordless_51: -5471047043774265526
+      skeleton_swordless_52: -7367423677813165444
+      skeleton_swordless_53: -3662829250138121816
+      skeleton_swordless_54: 6500831862545325332
+      skeleton_swordless_55: -1912176326244710543
+      skeleton_swordless_56: 8369880287160861833
+      skeleton_swordless_57: -454609884553981007
+      skeleton_swordless_58: -721345177079164850
+      skeleton_swordless_59: 1108546478655510605
+      skeleton_swordless_6: 56504053750673678
+      skeleton_swordless_60: -4150852573640648634
+      skeleton_swordless_61: 5359256631208586825
+      skeleton_swordless_62: -5871312162891162545
+      skeleton_swordless_63: 2055724360688617934
+      skeleton_swordless_64: -5744231264936426249
+      skeleton_swordless_65: -1786417051027712637
+      skeleton_swordless_66: -4409691256427932227
+      skeleton_swordless_67: 5065709437468154942
+      skeleton_swordless_68: 8772026188515842374
+      skeleton_swordless_69: 2708529679576697767
+      skeleton_swordless_7: 5713122614544789999
+      skeleton_swordless_70: -6134919166125254724
+      skeleton_swordless_8: -7172307053529538139
+      skeleton_swordless_9: 244189965417326531
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

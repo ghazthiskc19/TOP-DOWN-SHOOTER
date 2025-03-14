@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour
         if(collision.GetComponent<EnemyMovement>()){
             var healthController = collision.gameObject.GetComponent<HealthController>();
             healthController.TakeDamage(_gun._damage);
+            Destroy(gameObject);
             Destroy(collision.gameObject, .4f);
         }
     }

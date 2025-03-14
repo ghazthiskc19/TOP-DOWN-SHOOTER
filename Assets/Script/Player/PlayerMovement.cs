@@ -33,13 +33,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float velX = _rb.linearVelocityX;
-        float velY = _rb.linearVelocityY;
-        if (Mathf.Abs(velX) < 0.01f) velX = 0f;
-        if (Mathf.Abs(velY) < 0.01f) velY = 0f;
+        // float velX = _rb.linearVelocityX;
+        // float velY = _rb.linearVelocityY;
+        // if (Mathf.Abs(velX) < 0.1f) velX = 0f;
+        // if (Mathf.Abs(velY) < 0.1f) velY = 0f;
 
-        _animator.SetFloat(_horizontal, velX);
-        _animator.SetFloat(_vertical, velY);
+        _animator.SetFloat(_horizontal, _moveInput.x);
+        _animator.SetFloat(_vertical, _moveInput.y);
 
         if(_moveInput != Vector2.zero){
             _animator.SetFloat(_LastHorizontal, _moveInput.x);
@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollect(InputValue input){
         bool _hasPickup = false;
         if(input.isPressed && !_hasPickup && !_gun._isReloading){
-            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, ~0);
             foreach(Collider2D hit in hits){
                 if(hit.GetComponent<WeaponPickup>()){
                     WeaponPickup weaponPickup = hit.GetComponent<WeaponPickup>();
