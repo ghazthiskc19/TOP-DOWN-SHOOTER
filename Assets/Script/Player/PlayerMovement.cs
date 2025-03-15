@@ -21,8 +21,6 @@ public class PlayerMovement : MonoBehaviour
     private const string _LastHorizontal = "LastHorizontal";
     private const string _LastVertical = "LastVertical";
     private Gun _gun;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -37,9 +35,10 @@ public class PlayerMovement : MonoBehaviour
         // float velY = _rb.linearVelocityY;
         // if (Mathf.Abs(velX) < 0.1f) velX = 0f;
         // if (Mathf.Abs(velY) < 0.1f) velY = 0f;
-
-        _animator.SetFloat(_horizontal, _moveInput.x);
-        _animator.SetFloat(_vertical, _moveInput.y);
+        if(!_isAiming){
+            _animator.SetFloat(_vertical, _moveInput.y);
+            _animator.SetFloat(_horizontal, _moveInput.x);
+        }
 
         if(_moveInput != Vector2.zero){
             _animator.SetFloat(_LastHorizontal, _moveInput.x);
@@ -66,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
             _rb.linearVelocity = _smoothedMovement * _moveSpeed;
         }else{
             _rb.linearVelocity = Vector2.zero;
+            _animator.SetFloat(_vertical, 0);
+            _animator.SetFloat(_horizontal, 0);
         }
 
         HandlePlayerWhenGoingOutside();
@@ -102,6 +103,8 @@ public class PlayerMovement : MonoBehaviour
         _crosshairController.SetCrosshairVisibility(true);
         if(_isAiming){
             _rb.linearVelocity = Vector2.zero;
+            _animator.SetFloat(_vertical, 0);
+            _animator.SetFloat(_horizontal, 0);
         }
     }
 

@@ -33,7 +33,6 @@ public class Gun : MonoBehaviour
         _reloadUI = GameObject.Find("Reload UI").GetComponent<CanvasGroup>();
         _reloadText = _reloadUI.transform.GetChild(2).GetComponent<TMP_Text>();
         _reloadImageFill = _reloadUI.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
-        
     }
     private void Start()
     {
@@ -44,6 +43,7 @@ public class Gun : MonoBehaviour
 
     public void OnReload(InputValue input)
     {
+        Debug.Log(_currentAmmo + " " + _magazineSize);
         if(input.isPressed && _currentAmmo < _magazineSize)
         {
             _pressReloadKey = true; 
@@ -60,7 +60,6 @@ public class Gun : MonoBehaviour
         if(isReloading && !_playerMovement._isAiming){
             _reloadUI.alpha = 0f;
             CancelReload();
-
             return;
         }
 
@@ -72,7 +71,6 @@ public class Gun : MonoBehaviour
         }
         if(isReloading){
             timer += Time.deltaTime;
-            Debug.Log("Reload Timer: " + timer);
             _reloadText.text =  (_reloadTime - timer).ToString("F1") + "s";
             _reloadImageFill.fillAmount = timer / _reloadTime;
             if(timer >= _reloadTime){
@@ -94,7 +92,6 @@ public class Gun : MonoBehaviour
     private void CompleteReload()
     {
         int ammoNeeded = _magazineSize - _currentAmmo;
-
         if(_leftOverAmmo >= ammoNeeded)
         {
             _currentAmmo += ammoNeeded;

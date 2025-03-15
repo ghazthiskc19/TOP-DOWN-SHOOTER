@@ -27,11 +27,10 @@ public class    PlayerShoot : MonoBehaviour
     private Camera _camera;
     private PlayerMovement _playerMovement;
     private WeaponHolder _weaponHolder;
-    public TMP_Text _currentBullet;
-    public TMP_Text _leftOverBullet;
+    public TMP_Text[] _currentBullet;
+    public TMP_Text[] _leftOverBullet;
     private string _isAiming = "IsAiming";
-    private int slashLayerIndex;
-    void Awake()
+    void Start()
     {
         _gunOffset = transform.GetChild(1);
         _spriteRenderer = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
@@ -39,10 +38,9 @@ public class    PlayerShoot : MonoBehaviour
         _crosshairController = GameObject.Find("Crosshair").GetComponent<CrosshairController>();
         _camera = Camera.main;
         _playerMovement = GetComponentInParent<PlayerMovement>();
-        _weaponHolder = GetComponentInChildren<WeaponHolder>();
         _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
-        slashLayerIndex = _animator.GetLayerIndex("Slash Layer");
         _meeleAnimator = transform.GetChild(1).gameObject.GetComponent<Animator>();
+        _weaponHolder = GetComponentInChildren<WeaponHolder>();
     }
     void Update()
     {
@@ -50,7 +48,7 @@ public class    PlayerShoot : MonoBehaviour
             _gun = _weaponHolder.GetCurrentWeapon();
         }
         UpdateBulletText();
-        if(_playerMovement._isAiming ){
+        if(_playerMovement._isAiming){
             ChangeSpriteBasedOnMouse();
             if(_continousAttack && !_gun._isReloading && _canShoot){
                 _crosshairController.ExpandCrosshair();
@@ -91,15 +89,23 @@ public class    PlayerShoot : MonoBehaviour
     }
     public void UpdateBulletText()
     {
+        if(_gun == null) return;
         if(_gun._currentAmmo == 0){
-            _currentBullet.color = Color.red;
-            _leftOverBullet.color = Color.red;
+            for(int i = 0; i < _currentBullet.Length; i++){
+                _currentBullet[i].color = Color.blue;
+                _leftOverBullet[i].color = Color.blue;
+            }
         }else{
-            _currentBullet.color = Color.white;
-            _leftOverBullet.color = Color.white;
+            for(int i = 0; i < _currentBullet.Length; i++){
+                _currentBullet[i].color = Color.white;
+                _leftOverBullet[i].color = Color.white;
+            }
         }
-        _currentBullet.text = $"{_weaponHolder.GetCurrentWeapon()._currentAmmo} /";
-        _leftOverBullet.text = $"{_weaponHolder.GetCurrentWeapon()._leftOverAmmo}";
+        // Debug.Log(_weaponHolder.GetCurrentWeapon()._leftOverAmmo + " !! " + _weaponHolder.GetCurrentWeapon()._currentAmmo);
+        for(int i = 0; i < _currentBullet.Length; i++){
+            _currentBullet[i].text = $"{_gun._currentAmmo} /";
+            _leftOverBullet[i].text = $"{_gun._leftOverAmmo}";
+        }
     }
 
     private void ChangeSpriteBasedOnMouse(){

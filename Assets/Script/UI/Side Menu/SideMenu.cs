@@ -1,16 +1,35 @@
+using System.Collections;
+using Unity.Cinemachine;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class SideMenu : MonoBehaviour
 {
-    public GameObject sideMenuPanel; // Assign panel dari inspector
-    private RectTransform menuTransform;
+    public GameObject sideMenuPanel; // Panel yang akan muncul
+    public Volume globalVolume; // Assign Volume dari Inspector
+    private DepthOfField dof;
+    private CanvasGroup sideMenuCanvasGroup;
+    public CinemachineVirtualCamera _CMVM;
     private bool isPaused = false;
     private float slideDuration = 0.5f; // Durasi animasi
+    private float speedZoom = 0.7f;
+    private float normalOrthoSize = 5f;
+    private float targetOrthoSize = 6f;
+    public AnimationCurve animationCurve;
 
     void Start()
     {
-        menuTransform = sideMenuPanel.GetComponent<RectTransform>();
+        // Ambil Depth of Field dari Global Volume
+        if (globalVolume.profile.TryGet(out dof))
+        {
+            dof.active = false;
+        }
+
+        sideMenuCanvasGroup = sideMenuPanel.GetComponent<CanvasGroup>();
+        sideMenuCanvasGroup.alpha = 0;
+        sideMenuPanel.SetActive(false);
     }
 
     void Update()
@@ -24,31 +43,63 @@ public class SideMenu : MonoBehaviour
     public void TogglePauseMenu()
     {
         isPaused = !isPaused;
-        LeanTween.cancel(menuTransform);
         if (isPaused)
         {
-            LeanTween.moveX(menuTransform, 5, slideDuration).setEaseOutExpo()
-            .setIgnoreTimeScale(true)
-            .setOnComplete(() => Time.timeScale = 0);
+            StartCoroutine(ZoomEffect(true));
+            StartBlurEffect();
         }
         else
         {
-            LeanTween.moveX(menuTransform, -menuTransform.rect.width, slideDuration).setEaseInExpo()
-            .setIgnoreTimeScale(true)
-            .setOnComplete(() => Time.timeScale = 1);
+            StartCoroutine(ZoomEffect(false));
+            HideBlurEffect();
         }
     }
 
-    public void ResumeGame()
+   private void StartBlurEffect()
     {
-        isPaused = false;
-        LeanTween.moveX(menuTransform, -menuTransform.rect.width, slideDuration).setEaseInExpo().setIgnoreTimeScale(true)
-            .setOnComplete(() => Time.timeScale = 1);
+        if (dof == null) return;
+        dof.active = true;
+
+        LeanTween.value(gameObject, 0, 1, slideDuration)
+            .setOnUpdate((float val) => globalVolume.weight = val)
+            .setEaseOutExpo().setIgnoreTimeScale(true)
+            .setOnComplete(() =>
+            {
+                sideMenuPanel.SetActive(true);
+                LeanTween.alphaCanvas(sideMenuCanvasGroup, 1, 0.3f).setEaseInExpo().setDelay(1f)
+                    .setOnComplete(() => Time.timeScale = 0);
+            });
     }
 
-    // public void GoToMainMenu()
-    // {
-    //     Time.timeScale = 1;
-    //     SceneManager.LoadScene("MainMenu");
-    // }
+    private void HideBlurEffect()
+    {
+        if (dof == null) return;
+
+        Time.timeScale = 1;
+        LeanTween.alphaCanvas(sideMenuCanvasGroup, 0, 0.3f).setEaseInExpo()
+            .setOnComplete(() =>
+            {
+                sideMenuPanel.SetActive(false);
+
+                LeanTween.value(gameObject, 1, 0, slideDuration)
+                    .setOnUpdate((float val) => globalVolume.weight = val)
+                    .setEaseInExpo().setIgnoreTimeScale(true)
+                    .setOnComplete(() =>
+                    {
+                        dof.active = false;
+                    });
+            });
+    }
+
+    private IEnumerator ZoomEffect(bool zoomIn){
+        float startFOV = _CMVM.m_Lens.OrthographicSize;
+        float endPOV = zoomIn ? targetOrthoSize : normalOrthoSize;
+
+        float t = 0;
+        while(t < 1){
+            t += Time.deltaTime * speedZoom;
+            _CMVM.m_Lens.OrthographicSize = Mathf.Lerp(startFOV, endPOV, animationCurve.Evaluate(t));
+            yield return null;
+        }
+    }
 }

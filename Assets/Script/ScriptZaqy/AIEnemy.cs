@@ -180,6 +180,7 @@ public class AIEnemy : Enemy
     }
 
     public void goDie(){
+        PlayerInformation.instance.currentKill++;
         Destroy(gameObject);
     }
     public void dropWeapon(){

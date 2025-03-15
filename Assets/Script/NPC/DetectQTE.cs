@@ -19,6 +19,7 @@ public class DetectQTE : MonoBehaviour
     private Transform curingBar;
     public AnimationCurve animationCurve;
     private bool QTEDone = false;
+    private Animator _animator;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class DetectQTE : MonoBehaviour
         _foregroundCureFill = curingBar.Find("Foreground").GetComponent<UnityEngine.UI.Image>();
         _myQTEManager.OnPointChanged += UpdateFillAmount;
         curingBar.gameObject.SetActive(false);
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -62,7 +64,6 @@ public class DetectQTE : MonoBehaviour
             StartCoroutine(LerpFillAmount(targetProgress));
         }
     }
-
     private IEnumerator LerpFillAmount(float targetFill)
     {
         float start = _foregroundCureFill.fillAmount;
@@ -81,6 +82,17 @@ public class DetectQTE : MonoBehaviour
         yield return new WaitForSeconds(delay);
         curingBar.gameObject.SetActive(false);
         _foregroundCureFill.fillAmount = 0;
+
+        ChangeAnimationNPC();
+    }
+
+    private void ChangeAnimationNPC()
+    {
+        if(_myQTEManager.LastQTEWin){
+            _animator.SetTrigger("IsWin");
+        }else{
+            _animator.SetTrigger("IsLose");
+        }
     }
     private void OnDrawGizmos()
     {

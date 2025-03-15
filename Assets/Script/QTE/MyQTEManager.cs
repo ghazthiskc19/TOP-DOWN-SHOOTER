@@ -17,11 +17,15 @@ public class MyQTEManager : MonoBehaviour
     public int generateButton;
     public GameObject QTEWrapper;
     public GameObject QTEPrefabsButton;
+    public GameObject startQTEFrepabs;
     private BoxCollider2D QTEOffset;
     public CinemachineVirtualCamera _CMVM;
     public GameObject CameraPosition;
     public CanvasGroup UIWrapper;
     public bool QTEIsStart = false;
+    public Canvas MainCanvas;
+    private bool btnSelfDestroy = false;
+    public bool LastQTEWin {get; private set;}
     public float normalOrthoSize;
     public float targetOrthoSize;
     public float speedZoom;
@@ -31,7 +35,6 @@ public class MyQTEManager : MonoBehaviour
     public UnityEvent WhenQTEStart;
     public UnityEvent WhenQTEEnd;
     private List<GameObject> listQTEButtons = new List<GameObject>();
-    private bool btnSelfDestroy = false;
     public event Action<int, int> OnPointChanged;
     public DetectQTE _activeQTE;
     
@@ -72,16 +75,9 @@ public class MyQTEManager : MonoBehaviour
         {
             return;
         }
-        _activeQTE = NPC.GetComponent<DetectQTE>();
-        btnSelfDestroy = false;
-        _CMVM.Follow = NPC.transform;
-        StartCoroutine(ZoomEffect(true));
-        QTEIsStart = true;
-        currentPoint = 0;
-        UIWrapper.alpha = 0f;
-        StartCoroutine(FadeAnimation(UIWrapper.gameObject, true));
-        WhenQTEStart?.Invoke();
-        StartCoroutine(StartQTEUI());
+
+        GameObject startUI = Instantiate(startQTEFrepabs, MainCanvas.transform);
+        StartCoroutine(StartQTEUI(NPC, startUI));
     }
     private IEnumerator PlayQTE()
     {
@@ -106,7 +102,9 @@ public class MyQTEManager : MonoBehaviour
     {   
         if(win)
         {
-            Debug.Log("Menang cik!!");
+            PlayerInformation.instance.currentCure++;
+
+            Debug.Log("Menang!!!");
         }
         else
         {
@@ -115,8 +113,8 @@ public class MyQTEManager : MonoBehaviour
         _CMVM.Follow = CameraPosition.transform;
         StartCoroutine(ZoomEffect(false));
         StartCoroutine(FadeAnimation(UIWrapper.gameObject, false));
-        // UIWrapper.alpha = 1f;
         WhenQTEEnd?.Invoke();
+        LastQTEWin = win; 
         QTEIsStart = false;
     }
 private Vector2 GetRandomPosition()
@@ -132,7 +130,6 @@ private Vector2 GetRandomPosition()
         float randomPosY = UnityEngine.Random.Range(QTEOffset.bounds.min.y, QTEOffset.bounds.max.y);
         randomPos = new Vector2(randomPosX, randomPosY);
 
-        // Cek apakah posisinya terlalu dekat dengan button lain
         isOverlapping = false;
         foreach (var button in listQTEButtons)
         {
@@ -185,8 +182,31 @@ private Vector2 GetRandomPosition()
             yield return null;
         }
     }
-    private IEnumerator StartQTEUI(){
-        yield return new WaitForSeconds(2f);
+    private IEnumerator StartQTEUI(Transform NPC, GameObject UI){
+        CanvasGroup UICanvas = UI.GetComponent<CanvasGroup>();
+        RectTransform UIRect = UI.GetComponent<RectTransform>();
+        
+        UICanvas.alpha = 0f;
+        UIRect.anchoredPosition = new Vector2(0, -300);
+
+        LeanTween.alphaCanvas(UICanvas, 1, 0.5f).setEaseOutExpo();
+        LeanTween.moveY(UIRect, 0, 0.5f).setEaseOutExpo();
+        yield return new WaitForSeconds(1f);
+        LeanTween.moveY(UIRect, 300, 0.5f).setEaseOutExpo();
+        LeanTween.alphaCanvas(UICanvas, 0, 0.5f).setEaseOutExpo();
+        yield return new WaitForSeconds(1f);
+        UI.SetActive(false);
+
+
+        _activeQTE = NPC.GetComponent<DetectQTE>();
+        btnSelfDestroy = false;
+        _CMVM.Follow = NPC.transform;
+        StartCoroutine(ZoomEffect(true));
+        QTEIsStart = true;
+        currentPoint = 0;
+        UIWrapper.alpha = 0f;
+        StartCoroutine(FadeAnimation(UIWrapper.gameObject, true));
+        WhenQTEStart?.Invoke();
         StartCoroutine(PlayQTE());
     }
 

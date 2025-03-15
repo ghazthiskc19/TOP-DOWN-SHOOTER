@@ -7,6 +7,9 @@ TagManager:
   - UI
   - Obstacle
   - Enemy
+  - CurrentWeapon
+  - InMagazine
+  - showCurrentWeapon
   layers:
   - Default
   - TransparentFX
