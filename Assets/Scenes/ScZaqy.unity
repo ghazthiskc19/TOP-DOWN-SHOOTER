@@ -44244,7 +44244,7 @@ MonoBehaviour:
   - {fileID: -4383860921994854456, guid: 641818381b26f9941895cfb81d3e5d79, type: 3}
   _enemyLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 12
   MeeleSize: {x: 2, y: 1}
   MeeleRange: 1.8
   MeeleDuration: 0.3
