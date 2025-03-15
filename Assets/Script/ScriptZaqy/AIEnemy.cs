@@ -24,7 +24,7 @@ public class AIEnemy : Enemy
     int currentWaypoint;
     bool _Return;
     bool idle;
-    Vector2 direction = new Vector2 (1f, 1f);
+    public Vector2 direction = new Vector2 (1f, 1f);
     
 
     void Start()
