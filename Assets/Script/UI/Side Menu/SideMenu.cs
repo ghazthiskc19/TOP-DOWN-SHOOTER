@@ -16,7 +16,7 @@ public class SideMenu : MonoBehaviour
     private float slideDuration = 0.5f; // Durasi animasi
     private float speedZoom = 0.7f;
     private float normalOrthoSize = 5f;
-    private float targetOrthoSize = 6f;
+    private float targetOrthoSize = 4f;
     public AnimationCurve animationCurve;
 
     void Start()
