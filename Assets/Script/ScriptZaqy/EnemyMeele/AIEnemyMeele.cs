@@ -54,6 +54,7 @@ public class AIEnemyMeele : EnemyMeele
             anim.SetBool("idle", true);
         }
         if(trackPlayer){
+            Debug.Log(target);
             enemyRayCast.rayForChase(target);
         }
         else{

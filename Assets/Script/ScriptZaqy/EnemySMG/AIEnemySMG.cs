@@ -10,7 +10,7 @@ public class AIEnemySMG : EnemySMG
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private SanityController playerPhobia;
     [SerializeField] private GameObject _bulletPrefabs;
-    [SerializeField] private GameObject[] _weaponPrefabs;
+    [SerializeField] private GameObject _weaponPrefabs;
     public EnemyAnimControl enemyAnimation;
     public RayCastSMG enemyRayCast;
     public float timer;
@@ -229,18 +229,7 @@ public class AIEnemySMG : EnemySMG
         GetComponent<Collider2D>().enabled = false;
     }
     public void dropWeapon(){
-        if(Random.Range(0f, 1f) < 0.5f){
-            int chance = Random.Range(0, 100);
-            if(chance < 40){
-                GameObject weapon = Instantiate(_weaponPrefabs[0], transform.position, transform.rotation);
-            }else if(chance < 70){
-                GameObject weapon = Instantiate(_weaponPrefabs[1], transform.position, transform.rotation);
-            }else if(chance < 90){
-                GameObject weapon = Instantiate(_weaponPrefabs[2], transform.position, transform.rotation);
-            }else{
-                GameObject weapon = Instantiate(_weaponPrefabs[3], transform.position, transform.rotation);
-            }
-        }
+        GameObject weapon = Instantiate(_weaponPrefabs, transform.position, transform.rotation);
     }
 
     private void CoroutineMeeleAttack(float AttackDuration)
