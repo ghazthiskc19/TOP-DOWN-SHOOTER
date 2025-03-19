@@ -140,7 +140,7 @@ public class    PlayerShoot : MonoBehaviour
             {
                 HealthController healthController = enemy.GetComponent<HealthController>();
                 healthController.TakeDamage(MeeleDamage);
-                Destroy(enemy.gameObject, 0.4f);
+                // Destroy(enemy.gameObject, 0.4f);
             }
         }
         yield return new WaitForSeconds(meeleDuration);

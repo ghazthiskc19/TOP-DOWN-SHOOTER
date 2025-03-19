@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class CallEnemy : MonoBehaviour
+public class CallEnemySemi : MonoBehaviour
 {
-    [SerializeField] private AIEnemy self;
+    [SerializeField] private AIEnemySemi self;
     void OnTriggerStay2D(Collider2D collision){
         if(self.trackPlayer && collision.gameObject.CompareTag("Enemy")){
-            AIEnemy enemy = collision.gameObject.GetComponent<AIEnemy>();
+            AIEnemyPistol enemy = collision.gameObject.GetComponent<AIEnemyPistol>();
             if(!enemy.trackPlayer){
               enemy.foundPlayer();  
             }

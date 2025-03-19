@@ -3,15 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
 
-public class AIEnemy : Enemy
+public class AIEnemySniper : EnemySniper
 {
     [SerializeField] private LayerMask _playerLayer;
+    [SerializeField] private SanityController playerPhobia;
     [SerializeField] private GameObject _bulletPrefabs;
     [SerializeField] private GameObject _weaponPrefabs;
     public EnemyAnimControl enemyAnimation;
-    public RayCast enemyRayCast;
-    public Vector2 MeeleSize = new Vector2(1.5f, 1.0f);
-    public float MeeleRange = 1.0f;
+    public RayCastSniper enemyRayCast;
     public float timer;
     public float timerSearchPlayer;
     public float timerLostPlayer;
@@ -46,9 +45,10 @@ public class AIEnemy : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
-        // if(health._currentHealth <= 0){
-        //     goDie();
-        // }
+        if(notPatrol){
+            idle = true;
+            anim.SetBool("idle", true);
+        }
         if(trackPlayer){
             enemyRayCast.rayForChase(target);
         }
@@ -64,6 +64,8 @@ public class AIEnemy : Enemy
             if(distancePlayer < attackRange && enemyRayCast.ray.collider.gameObject.CompareTag("Player")){
                 idle = true;
                 anim.SetBool("idle", true);
+                anim.SetBool("attacking", true);
+                anim.SetBool("meeleEnemy", meeleEnemy);
                 enemyAnimation.animControl(target[0].position - transform.position);
                 if(enemyRayCast.ray.collider.gameObject.CompareTag("Player") && !meeleEnemy){
                     FireBullet();
@@ -75,6 +77,7 @@ public class AIEnemy : Enemy
             else{
                 idle = false;
                 anim.SetBool("idle", false);
+                anim.SetBool("attacking", false);
             }
 
             if(timerLostPlayer <= 0){
@@ -101,6 +104,9 @@ public class AIEnemy : Enemy
         }
 
         
+    }
+    public void chanceBulletDamage(){
+        setBulletDamage(5.0f);    
     }
     void goWalk(){
         direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -173,15 +179,41 @@ public class AIEnemy : Enemy
             return;
         }
         GameObject enemyBullet = Instantiate(_bulletPrefabs, transform.position, Quaternion.LookRotation(Vector3.forward, target[0].position - transform.position));
-        var bullet = enemyBullet.GetComponent<EnemyBullet>();
-        bullet.enemy = GetComponent<AIEnemy>();
+        var bullet = enemyBullet.GetComponent<EnemyBulletSniper>();
+        bullet.enemy = GetComponent<AIEnemySniper>();
         Rigidbody2D _rbBullet = enemyBullet.GetComponent<Rigidbody2D>();
         _rbBullet.linearVelocity = (target[0].position - transform.position).normalized * _bulletSpeed;
+        SoundAttack();
+    }
+
+    void SoundAttack(){
+        if(playerPhobia.phobiaSuara){
+            Vector2 meeleDirection = (target[0].position - transform.position).normalized;
+            float angle = Mathf.Atan2(meeleDirection.y, meeleDirection.x) * Mathf.Rad2Deg;
+
+            Vector2 attackCenter = (Vector2)transform.position + meeleDirection * MeeleRange;
+            Collider2D[] players = Physics2D.OverlapBoxAll(attackCenter, MeeleSize, angle, _playerLayer);
+
+            foreach (Collider2D player in players){
+                if (player.gameObject.CompareTag("Player")){
+                    havedoneattack = true;
+                    Debug.Log("Player terkena serangan suara!");
+                    HealthController healthController = player.GetComponent<HealthController>();
+                    if (healthController != null){
+                        healthController.IsInvicible = false;
+                        playerPhobia.lostSanity(5);
+                        healthController.TakeDamage(5);
+                    }
+                }
+            }
+        }
     }
 
     public void goDie(){
         PlayerInformation.instance.currentKill++;
-        Destroy(gameObject);
+        anim.SetTrigger("IsDead");
+        GetComponent<AIEnemySniper>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
     }
     public void dropWeapon(){
         GameObject weapon = Instantiate(_weaponPrefabs, transform.position, transform.rotation);
@@ -211,12 +243,13 @@ public class AIEnemy : Enemy
                 HealthController healthController = player.GetComponent<HealthController>();
                 if (healthController != null)
                 {
-                    healthController.TakeDamage(bulletDamage);
+                    healthController.TakeDamage(getBulletDamage());
                 }
             }
         }
 
     }
+
 
     private void OnDrawGizmos()
     {
