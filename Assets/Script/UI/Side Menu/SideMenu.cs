@@ -13,8 +13,8 @@ public class SideMenu : MonoBehaviour
     private CanvasGroup sideMenuCanvasGroup;
     public CinemachineVirtualCamera _CMVM;
     private bool isPaused = false;
-    private float slideDuration = 0.5f; // Durasi animasi
-    private float speedZoom = 0.7f;
+    private float slideDuration = 0.3f; // Durasi animasi
+    private float zoom = 0.5f;
     private float normalOrthoSize = 5f;
     private float targetOrthoSize = 4f;
     public AnimationCurve animationCurve;
@@ -45,14 +45,24 @@ public class SideMenu : MonoBehaviour
         isPaused = !isPaused;
         if (isPaused)
         {
-            StartCoroutine(ZoomEffect(true));
-            StartBlurEffect();
+            OpenSideMenu();
         }
         else
         {
-            StartCoroutine(ZoomEffect(false));
-            HideBlurEffect();
+            CloseSideMenu();
         }
+    }
+
+    public void OpenSideMenu()
+    {
+        StartCoroutine(ZoomEffect(true));
+        StartBlurEffect();
+    }
+
+    public void CloseSideMenu()
+    {
+        StartCoroutine(ZoomEffect(false));
+        HideBlurEffect();
     }
 
    private void StartBlurEffect()
@@ -62,11 +72,11 @@ public class SideMenu : MonoBehaviour
 
         LeanTween.value(gameObject, 0, 1, slideDuration)
             .setOnUpdate((float val) => globalVolume.weight = val)
-            .setEaseOutExpo().setIgnoreTimeScale(true)
+            .setEaseOutExpo().setIgnoreTimeScale(true).setDelay(slideDuration)
             .setOnComplete(() =>
             {
                 sideMenuPanel.SetActive(true);
-                LeanTween.alphaCanvas(sideMenuCanvasGroup, 1, 0.3f).setEaseInExpo().setDelay(1f)
+                LeanTween.alphaCanvas(sideMenuCanvasGroup, 1, 0.3f).setEaseInExpo()
                     .setOnComplete(() => Time.timeScale = 0);
             });
     }
@@ -97,8 +107,9 @@ public class SideMenu : MonoBehaviour
 
         float t = 0;
         while(t < 1){
-            t += Time.deltaTime * speedZoom;
-            _CMVM.m_Lens.OrthographicSize = Mathf.Lerp(startFOV, endPOV, animationCurve.Evaluate(t));
+            t += Time.deltaTime;
+            float elapsed = t / zoom;
+            _CMVM.m_Lens.OrthographicSize = Mathf.Lerp(startFOV, endPOV, animationCurve.Evaluate(elapsed));
             yield return null;
         }
     }

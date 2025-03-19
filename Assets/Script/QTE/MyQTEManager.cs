@@ -23,9 +23,10 @@ public class MyQTEManager : MonoBehaviour
     public GameObject CameraPosition;
     public CanvasGroup UIWrapper;
     public bool QTEIsStart = false;
+    public bool QTEIsEnd;
     public Canvas MainCanvas;
     private bool btnSelfDestroy = false;
-    public bool LastQTEWin {get; private set;}
+    public bool LastQTEWin {get; set;}
     public float normalOrthoSize;
     public float targetOrthoSize;
     public float speedZoom;
@@ -42,7 +43,13 @@ public class MyQTEManager : MonoBehaviour
     void Awake()
     {
         QTEOffset = QTEWrapper.GetComponent<BoxCollider2D>();
-        instance = this;
+        
+        if(instance == null) {
+            instance = this;
+        }
+        else{
+            Destroy(gameObject);
+        }
     }
     void Update()
     {
@@ -71,6 +78,7 @@ public class MyQTEManager : MonoBehaviour
     }
     public void StartQTE(Transform NPC)
     {
+        QTEIsEnd = false;
         if (QTEIsStart)
         {
             return;
@@ -102,9 +110,7 @@ public class MyQTEManager : MonoBehaviour
     {   
         if(win)
         {
-            PlayerInformation.instance.currentCure++;
-
-            Debug.Log("Menang!!!");
+            PlayerInformation.instance.AddCure();
         }
         else
         {
@@ -113,9 +119,11 @@ public class MyQTEManager : MonoBehaviour
         _CMVM.Follow = CameraPosition.transform;
         StartCoroutine(ZoomEffect(false));
         StartCoroutine(FadeAnimation(UIWrapper.gameObject, false));
+        LastQTEWin = win;
         WhenQTEEnd?.Invoke();
-        LastQTEWin = win; 
         QTEIsStart = false;
+        QTEIsEnd = true;
+        _activeQTE.LastWinResult = win;
     }
 private Vector2 GetRandomPosition()
 {
@@ -189,24 +197,30 @@ private Vector2 GetRandomPosition()
         UICanvas.alpha = 0f;
         UIRect.anchoredPosition = new Vector2(0, -300);
 
-        LeanTween.alphaCanvas(UICanvas, 1, 0.5f).setEaseOutExpo();
+        // Move UI QTE 
+        LeanTween.alphaCanvas(UICanvas, 1, 0.4f).setEaseOutExpo();
         LeanTween.moveY(UIRect, 0, 0.5f).setEaseOutExpo();
+
         yield return new WaitForSeconds(1f);
+        LeanTween.alphaCanvas(UICanvas, 0, 0.4f).setEaseOutExpo();
         LeanTween.moveY(UIRect, 300, 0.5f).setEaseOutExpo();
-        LeanTween.alphaCanvas(UICanvas, 0, 0.5f).setEaseOutExpo();
+
+        // Hide Player UI
+        UIWrapper.alpha = 0f;
+        StartCoroutine(FadeAnimation(UIWrapper.gameObject, true));
         yield return new WaitForSeconds(1f);
         UI.SetActive(false);
 
+        // Zoom effect
+        _CMVM.Follow = NPC.transform;
+        StartCoroutine(ZoomEffect(true));
 
         _activeQTE = NPC.GetComponent<DetectQTE>();
         btnSelfDestroy = false;
-        _CMVM.Follow = NPC.transform;
-        StartCoroutine(ZoomEffect(true));
         QTEIsStart = true;
         currentPoint = 0;
-        UIWrapper.alpha = 0f;
-        StartCoroutine(FadeAnimation(UIWrapper.gameObject, true));
         WhenQTEStart?.Invoke();
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(PlayQTE());
     }
 

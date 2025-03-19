@@ -327,7 +327,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _bulletPrefabs: {fileID: 5517102115687532194, guid: 746b3de391214324abd2501e0b559d56, type: 3}
-  _weaponPrefabs: {fileID: 124689888056130657, guid: 276704b835221364782362bb9c164bf4, type: 3}
+  _weaponPrefabs:
+  - {fileID: 124689888056130657, guid: 276704b835221364782362bb9c164bf4, type: 3}
+  - {fileID: 124689888056130657, guid: 05f252a3b5b9c6345a804bf4e1f08809, type: 3}
+  - {fileID: 124689888056130657, guid: 935af265b8839ba4089b2762b0298a14, type: 3}
+  - {fileID: 124689888056130657, guid: e039e5e4adbdedc4bab25c37afce176a, type: 3}
   enemyAnimation: {fileID: 2113569052171821883}
   enemyRayCast: {fileID: -2835639272340948266}
   MeeleSize: {x: 1.5, y: 1}

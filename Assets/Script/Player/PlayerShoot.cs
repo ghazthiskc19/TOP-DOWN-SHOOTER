@@ -103,7 +103,7 @@ public class    PlayerShoot : MonoBehaviour
         }
         // Debug.Log(_weaponHolder.GetCurrentWeapon()._leftOverAmmo + " !! " + _weaponHolder.GetCurrentWeapon()._currentAmmo);
         for(int i = 0; i < _currentBullet.Length; i++){
-            _currentBullet[i].text = $"{_gun._currentAmmo} /";
+            _currentBullet[i].text = $"{_gun._currentAmmo} i";
             _leftOverBullet[i].text = $"{_gun._leftOverAmmo}";
         }
     }
@@ -140,7 +140,6 @@ public class    PlayerShoot : MonoBehaviour
             {
                 HealthController healthController = enemy.GetComponent<HealthController>();
                 healthController.TakeDamage(MeeleDamage);
-                Destroy(enemy.gameObject, 0.4f);
             }
         }
         yield return new WaitForSeconds(meeleDuration);

@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
+    public HealthController HealthController {get ; set;}
+    public WeaponHolder WeaponHolder {get; set;}
+    public SpawnManager SpawnManager {get; set;}
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _screenBorder;
@@ -23,18 +27,20 @@ public class PlayerMovement : MonoBehaviour
     private Gun _gun;
     void Awake()
     {
+        if(instance == null) instance = this;
         _rb = GetComponent<Rigidbody2D>();
         _camera = Camera.main;
         _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
         _crosshairController = FindAnyObjectByType<CrosshairController>();
+        HealthController = GetComponent<HealthController>();
     }
 
     void Update()
     {
-        // float velX = _rb.linearVelocityX;
-        // float velY = _rb.linearVelocityY;
-        // if (Mathf.Abs(velX) < 0.1f) velX = 0f;
-        // if (Mathf.Abs(velY) < 0.1f) velY = 0f;
+        if(Input.GetKeyDown(KeyCode.F2))
+        {
+            SaveSystem.Load();
+        }
         if(!_isAiming){
             _animator.SetFloat(_vertical, _moveInput.y);
             _animator.SetFloat(_horizontal, _moveInput.x);
@@ -127,5 +133,23 @@ public class PlayerMovement : MonoBehaviour
     {
         weaponPickup.IsPickup = true;
     }
-}
 
+    public void Save(ref PlayerSaveData data)
+    {
+        data.playerPos = RespawnController.instance.lastCheckpointPos;
+        data.currentHealth = HealthController.GetCurrentHealth();
+        Debug.Log(data.currentHealth);
+    }
+    public void Load(PlayerSaveData data)
+    {
+        Debug.Log(data.currentHealth);
+        transform.position = data.playerPos;
+        HealthController.SetCurrentHealth(data.currentHealth);
+    }
+}
+[System.Serializable]
+public struct PlayerSaveData{
+    public Vector3 playerPos;
+    public float currentHealth;
+
+}

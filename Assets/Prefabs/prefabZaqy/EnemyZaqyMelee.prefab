@@ -544,11 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 006c4bbf13b250d4b991ddb382613b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  target: []
   nextTarget: 0
   speed: 250
   bulletDamage: 10
@@ -563,7 +559,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _bulletPrefabs: {fileID: 5517102115687532194, guid: 746b3de391214324abd2501e0b559d56, type: 3}
-  _weaponPrefabs: {fileID: 0}
+  _weaponPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemyAnimation: {fileID: 8400678017914391905}
   enemyRayCast: {fileID: 7357047168358297667}
   MeeleSize: {x: 2, y: 2}

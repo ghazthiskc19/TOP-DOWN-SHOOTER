@@ -15,11 +15,17 @@ public class HealthBarUI : MonoBehaviour
 
         _currentHealth = _healthBarForeground.fillAmount;
         float t = 0;
-        int timeAnimation = 2;
+        int timeAnimation = 1;
         while(t < 1){
-            t += Time.deltaTime / timeAnimation;
-            _healthBarForeground.fillAmount = Mathf.Lerp(_currentHealth ,healthController.RemainingHealth, curve.Evaluate(t));
+            t += Time.deltaTime;
+            float elapsedTime = t / timeAnimation;
+            _healthBarForeground.fillAmount = Mathf.Lerp(_currentHealth ,healthController.RemainingHealth, curve.Evaluate(elapsedTime));
             yield return null;
         }
+    }
+    void Start()
+    {
+        HealthController healthController = GetComponentInChildren<HealthController>();
+        if(healthController != null) _healthBarForeground.fillAmount = healthController.RemainingHealth;
     }
 }

@@ -24,8 +24,6 @@ public class Gun : MonoBehaviour
     private  TMP_Text _reloadText;
     private UnityEngine.UI.Image _reloadImageFill;
     private CanvasGroup _reloadUI;
-
-
     private void Awake()
     {
         _playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -43,7 +41,6 @@ public class Gun : MonoBehaviour
 
     public void OnReload(InputValue input)
     {
-        Debug.Log(_currentAmmo + " " + _magazineSize);
         if(input.isPressed && _currentAmmo < _magazineSize)
         {
             _pressReloadKey = true; 

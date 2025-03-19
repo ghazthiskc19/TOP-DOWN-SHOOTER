@@ -13291,7 +13291,7 @@ GameObject:
   - component: {fileID: 143018538}
   - component: {fileID: 143018540}
   - component: {fileID: 143018539}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20378,7 +20378,7 @@ Transform:
   m_GameObject: {fileID: 649998693}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.2035675, y: 10.599997, z: -10}
+  m_LocalPosition: {x: -3.4799995, y: 10.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44076,7 +44076,7 @@ GameObject:
   - component: {fileID: 1135545359}
   - component: {fileID: 1135545358}
   - component: {fileID: 1135545368}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -44249,7 +44249,7 @@ MonoBehaviour:
   - {fileID: -4383860921994854456, guid: 641818381b26f9941895cfb81d3e5d79, type: 3}
   _enemyLayer:
     serializedVersion: 2
-    m_Bits: 12
+    m_Bits: 8
   MeeleSize: {x: 2, y: 1}
   MeeleRange: 1.8
   MeeleDuration: 0.3
@@ -54895,7 +54895,7 @@ GameObject:
   - component: {fileID: 2044542230}
   - component: {fileID: 2044542229}
   - component: {fileID: 2044542228}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Weapon Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

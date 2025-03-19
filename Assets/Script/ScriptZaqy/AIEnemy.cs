@@ -5,9 +5,11 @@ using Pathfinding;
 
 public class AIEnemy : Enemy
 {
+    private Camera _camera;
+    private PlayerMovement _playerMovement;
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private GameObject _bulletPrefabs;
-    [SerializeField] private GameObject _weaponPrefabs;
+    [SerializeField] private GameObject[] _weaponPrefabs;
     public EnemyAnimControl enemyAnimation;
     public RayCast enemyRayCast;
     public Vector2 MeeleSize = new Vector2(1.5f, 1.0f);
@@ -36,6 +38,8 @@ public class AIEnemy : Enemy
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        _camera = Camera.main;
+        _playerMovement = FindAnyObjectByType<PlayerMovement>();
 
         InvokeRepeating("UpdatePath", 0f, 1f);
         seeker.StartPath(rb.position, target[nextTarget].position,  OnPathComplete);
@@ -165,6 +169,7 @@ public class AIEnemy : Enemy
     }
 
     void FireBullet(){
+        // ChangeAnimationBaseOnTarget();
         timer -= Time.deltaTime;
         if( timer < 0){
             timer = _timeBetweenAttack;
@@ -179,12 +184,31 @@ public class AIEnemy : Enemy
         _rbBullet.linearVelocity = (target[0].position - transform.position).normalized * _bulletSpeed;
     }
 
+    private void ChangeAnimationBaseOnTarget()
+    {
+        Vector3 playerPos = _playerMovement.gameObject.transform.position;
+        Vector2 direction = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y);
+        anim.SetFloat("Horizontal", direction.x);
+        anim.SetFloat("Vertical", direction.y);
+    }
+
     public void goDie(){
-        PlayerInformation.instance.currentKill++;
+        PlayerInformation.instance.AddKill();
         Destroy(gameObject);
     }
     public void dropWeapon(){
-        GameObject weapon = Instantiate(_weaponPrefabs, transform.position, transform.rotation);
+        if(Random.Range(0f, 1f) < 0.5f){
+            int chance = Random.Range(0, 100);
+            if(chance < 40){
+                GameObject weapon = Instantiate(_weaponPrefabs[0], transform.position, transform.rotation);
+            }else if(chance < 70){
+                GameObject weapon = Instantiate(_weaponPrefabs[1], transform.position, transform.rotation);
+            }else if(chance < 90){
+                GameObject weapon = Instantiate(_weaponPrefabs[2], transform.position, transform.rotation);
+            }else{
+                GameObject weapon = Instantiate(_weaponPrefabs[3], transform.position, transform.rotation);
+            }
+        }
     }
 
     private void CoroutineMeeleAttack(float AttackDuration)

@@ -25,10 +25,10 @@ public class Bullet : MonoBehaviour
             healthController.TakeDamage(_gun._damage);
             var enemy = collision.gameObject.GetComponent<AIEnemy>();
             enemy.foundPlayer();
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject);
         }
         else if(collision.gameObject.CompareTag("Obstacle")){
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject);
         }
     }
 

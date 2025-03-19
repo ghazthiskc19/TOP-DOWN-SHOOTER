@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private float _currentHealth;
@@ -8,6 +10,23 @@ public class HealthController : MonoBehaviour
     void Awake()
     {
         _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
+        UpdateAllHealthBarsPlayer((a) => a.UpadteHealthBar(this));
+    }
+
+    public float GetCurrentHealth()
+    {
+        return _currentHealth;
+    }
+
+    public void SetCurrentHealth(float value){
+        if(GetComponent<PlayerMovement>()){
+            UpdateAllHealthBarsPlayer((a) =>  {
+                _currentHealth = value;
+                a.UpadteHealthBar(this);
+            });
+        }else{
+            _currentHealth = value;
+        }
     }
     public float RemainingHealth
     {
@@ -34,17 +53,12 @@ public class HealthController : MonoBehaviour
         }
         _currentHealth -= damageAmount; 
         if(GetComponent<PlayerMovement>()){
-            HealthBarUI[] healthBarUI = FindObjectsByType<HealthBarUI>(FindObjectsSortMode.None);
-            foreach (HealthBarUI healthbar in healthBarUI){
-                if(healthbar.gameObject.name == "Health Bar"){
-                    healthbar.UpadteHealthBar(this);
-                }
-            }
+            UpdateAllHealthBarsPlayer((a) => a.UpadteHealthBar(this));
         }
         OnHealthChanged.Invoke();
         if(_currentHealth <= 0 ){
-            OnDied.Invoke();
-            _animator.SetBool("IsDead", true);
+            OnDied.Invoke();    
+            if(_animator != null) _animator.SetBool("IsDead", true);
         }else{
             OnDamaged.Invoke();
         }
@@ -57,16 +71,30 @@ public class HealthController : MonoBehaviour
 
         _currentHealth += amountToAdd;
         if(GetComponent<PlayerMovement>()){
-            HealthBarUI[] healthBarUI = FindObjectsByType<HealthBarUI>(FindObjectsSortMode.None);
-            foreach (HealthBarUI healthbar in healthBarUI){
-                if(healthbar.gameObject.name == "Health Bar"){
-                    healthbar.UpadteHealthBar(this);
-                }
-            }
+            UpdateAllHealthBarsPlayer((a) => a.UpadteHealthBar(this));
         }
         OnHealthChanged.Invoke();
         if(_currentHealth >= _maxHealth){
             _currentHealth = _maxHealth;
+        }
+    }
+
+    public void ResetHealth()
+    {
+        if(GetComponent<PlayerMovement>()){
+            UpdateAllHealthBarsPlayer((a) =>  {
+                _currentHealth = _maxHealth;
+                a.UpadteHealthBar(this);
+            });
+        }
+    }
+    private void UpdateAllHealthBarsPlayer(Action<HealthBarUI> innerFunc)
+    {
+        HealthBarUI[] healthBarUI = FindObjectsByType<HealthBarUI>(FindObjectsSortMode.None);
+        foreach (HealthBarUI healthbar in healthBarUI){
+            if(healthbar.gameObject.name == "Health Bar" && healthbar.gameObject.CompareTag("Healthbar player")){
+                    innerFunc?.Invoke(healthbar);
+            }
         }
     }
 
