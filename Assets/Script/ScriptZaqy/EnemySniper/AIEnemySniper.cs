@@ -38,6 +38,7 @@ public class AIEnemySniper : EnemySniper
 
         InvokeRepeating("UpdatePath", 0f, 1f);
         seeker.StartPath(rb.position, target[nextTarget].position,  OnPathComplete);
+        enemyAnimation.animControl(direction);
     }
 
     
@@ -45,6 +46,10 @@ public class AIEnemySniper : EnemySniper
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(playerPhobia.phobiaApi && anim.GetLayerWeight(0) == 1){
+            anim.SetLayerWeight(3, 1);
+            anim.SetLayerWeight(0, 0);
+        }
         if(notPatrol){
             idle = true;
             anim.SetBool("idle", true);
@@ -61,13 +66,14 @@ public class AIEnemySniper : EnemySniper
         }
         if(nextTarget == 0){
             float distancePlayer = Vector2.Distance(target[0].position, transform.position);
-            if(distancePlayer < attackRange && enemyRayCast.ray.collider.gameObject.CompareTag("Player")){
+            if(distancePlayer < getAttackRange() && enemyRayCast.ray.collider.gameObject.CompareTag("Player")){
                 idle = true;
                 anim.SetBool("idle", true);
                 anim.SetBool("attacking", true);
                 anim.SetBool("meeleEnemy", meeleEnemy);
                 enemyAnimation.animControl(target[0].position - transform.position);
                 if(enemyRayCast.ray.collider.gameObject.CompareTag("Player") && !meeleEnemy){
+                    SoundAttack();
                     FireBullet();
                 }
                 else if(enemyRayCast.ray.collider.gameObject.CompareTag("Player") && meeleEnemy){
@@ -110,7 +116,7 @@ public class AIEnemySniper : EnemySniper
     }
     void goWalk(){
         direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * 4000 * Time.deltaTime;
+        Vector2 force = direction * (float) (getSpeed()) * 4000 * Time.deltaTime;
         enemyAnimation.animControl(direction);
         rb.AddForce(force);
     }
@@ -171,6 +177,9 @@ public class AIEnemySniper : EnemySniper
     }
 
     void FireBullet(){
+        if(playerPhobia.phobiaSuara){
+            return;
+        }
         timer -= Time.deltaTime;
         if( timer < 0){
             timer = _timeBetweenAttack;
@@ -183,27 +192,35 @@ public class AIEnemySniper : EnemySniper
         bullet.enemy = GetComponent<AIEnemySniper>();
         Rigidbody2D _rbBullet = enemyBullet.GetComponent<Rigidbody2D>();
         _rbBullet.linearVelocity = (target[0].position - transform.position).normalized * _bulletSpeed;
-        SoundAttack();
     }
 
     void SoundAttack(){
-        if(playerPhobia.phobiaSuara){
-            Vector2 meeleDirection = (target[0].position - transform.position).normalized;
-            float angle = Mathf.Atan2(meeleDirection.y, meeleDirection.x) * Mathf.Rad2Deg;
+        if(!playerPhobia.phobiaSuara){
+            return;
+        }
+        timer -= Time.deltaTime;
+        if( timer < 0){
+            timer = _timeBetweenAttack;
+        }
+        else{
+            return;
+        }
+        Vector2 meeleDirection = (target[0].position - transform.position).normalized;
+        float angle = Mathf.Atan2(meeleDirection.y, meeleDirection.x) * Mathf.Rad2Deg;
 
-            Vector2 attackCenter = (Vector2)transform.position + meeleDirection * MeeleRange;
-            Collider2D[] players = Physics2D.OverlapBoxAll(attackCenter, MeeleSize, angle, _playerLayer);
+        Vector2 attackCenter = (Vector2)transform.position + meeleDirection * MeeleRange;
+        Collider2D[] players = Physics2D.OverlapBoxAll(attackCenter, MeeleSize, angle, _playerLayer);
 
-            foreach (Collider2D player in players){
-                if (player.gameObject.CompareTag("Player")){
-                    havedoneattack = true;
-                    Debug.Log("Player terkena serangan suara!");
-                    HealthController healthController = player.GetComponent<HealthController>();
-                    if (healthController != null){
-                        healthController.IsInvicible = false;
-                        playerPhobia.lostSanity(5);
-                        healthController.TakeDamage(5);
-                    }
+        foreach (Collider2D player in players){
+            if (player.gameObject.CompareTag("Player")){
+                havedoneattack = true;
+                Debug.Log("Player terkena serangan suara!");
+                HealthController healthController = player.GetComponent<HealthController>();
+                if (healthController != null){
+                    healthController.IsInvicible = false;
+                    playerPhobia.lostSanity(5);
+                    healthController.TakeDamage(5);
+                    
                 }
             }
         }

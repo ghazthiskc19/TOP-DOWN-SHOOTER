@@ -11,7 +11,7 @@ public class EnemyMeele : MonoBehaviour
     public float _bulletSpeed;
     public static float _timeBetweenAttack = 1;
     public bool meeleEnemy;
-    public int attackRange;
+    public float attackRange;
     public bool havedoneattack;
     public bool notPatrol;
     public static Vector2 MeeleSize = new Vector2(2f, 2f);

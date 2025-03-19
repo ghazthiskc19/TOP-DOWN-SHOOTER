@@ -23,6 +23,7 @@ public class SanityController : MonoBehaviour
     }
     public UnityEvent sanitylevelChanged;
     public UnityEvent OnSanityChanged;
+    public UnityEvent Suicide;
     public bool phobiaApi;
     public bool phobiaDarah;
     public bool phobiaSuara;
@@ -37,6 +38,8 @@ public class SanityController : MonoBehaviour
         enemyMeele.setMeeleSize(new Vector2(2f, 2f));
         enemyMeele.setAttackSpeed(1f);
         enemyMeele.setSpeed(800f);
+
+        enemySniper.setAttackRange(20f);
     }
 
     public void goInsane(){
@@ -69,9 +72,12 @@ public class SanityController : MonoBehaviour
 
     public void lostSanity(int sanityLost){
         if(!_health.IsInvicible){
-            int sanityDamages = Random.Range(sanityLost, sanityLost + 2);
+            int sanityDamages = Random.Range(sanityLost, sanityLost + 5);
             _currentSanity += sanityDamages;
             OnSanityChanged.Invoke();
+            if(_currentSanity >= 350){
+                Suicide.Invoke();
+            }
             if(_currentSanity >= (100 * _sanityLevel) + 100){
                 goInsane();
                 _currentSanity = (100 * _sanityLevel);
@@ -116,6 +122,7 @@ public class SanityController : MonoBehaviour
         phobiaDarah = true;
     }
     public void getPhobiaSuara(){
+        enemySniper.setAttackRange(2.2f);
         phobiaSuara = true;
     }
     public void getPhobiaKematian(){

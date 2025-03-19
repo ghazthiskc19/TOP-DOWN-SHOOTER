@@ -42,6 +42,7 @@ public class AIEnemySMG : EnemySMG
 
         InvokeRepeating("UpdatePath", 0f, 1f);
         seeker.StartPath(rb.position, target[nextTarget].position,  OnPathComplete);
+        enemyAnimation.animControl(direction);
     }
 
     
@@ -49,6 +50,10 @@ public class AIEnemySMG : EnemySMG
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(playerPhobia.phobiaApi && anim.GetLayerWeight(0) == 1){
+            anim.SetLayerWeight(3, 1);
+            anim.SetLayerWeight(0, 0);
+        }
         if(notPatrol){
             idle = true;
             anim.SetBool("idle", true);
@@ -188,30 +193,6 @@ public class AIEnemySMG : EnemySMG
         bullet.enemy = GetComponent<AIEnemySMG>();
         Rigidbody2D _rbBullet = enemyBullet.GetComponent<Rigidbody2D>();
         _rbBullet.linearVelocity = (target[0].position - transform.position).normalized * _bulletSpeed;
-        SoundAttack();
-    }
-
-    void SoundAttack(){
-        if(playerPhobia.phobiaSuara){
-            Vector2 meeleDirection = (target[0].position - transform.position).normalized;
-            float angle = Mathf.Atan2(meeleDirection.y, meeleDirection.x) * Mathf.Rad2Deg;
-
-            Vector2 attackCenter = (Vector2)transform.position + meeleDirection * MeeleRange;
-            Collider2D[] players = Physics2D.OverlapBoxAll(attackCenter, MeeleSize, angle, _playerLayer);
-
-            foreach (Collider2D player in players){
-                if (player.gameObject.CompareTag("Player")){
-                    havedoneattack = true;
-                    Debug.Log("Player terkena serangan suara!");
-                    HealthController healthController = player.GetComponent<HealthController>();
-                    if (healthController != null){
-                        healthController.IsInvicible = false;
-                        playerPhobia.lostSanity(5);
-                        healthController.TakeDamage(5);
-                    }
-                }
-            }
-        }
     }
 
     private void ChangeAnimationBaseOnTarget()

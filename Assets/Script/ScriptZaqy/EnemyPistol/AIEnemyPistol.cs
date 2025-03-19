@@ -40,6 +40,7 @@ public class AIEnemyPistol : EnemyPistol
 
         InvokeRepeating("UpdatePath", 0f, 1f);
         seeker.StartPath(rb.position, target[nextTarget].position,  OnPathComplete);
+        enemyAnimation.animControl(direction);
 
         anim.SetLayerWeight(0, 0);
         anim.SetLayerWeight(1, 1);
@@ -57,9 +58,6 @@ public class AIEnemyPistol : EnemyPistol
             idle = true;
             anim.SetBool("idle", true);
         }
-        // if(health._currentHealth <= 0){
-        //     goDie();
-        // }
         if(trackPlayer){
             enemyRayCast.rayForChase(target);
         }
@@ -115,9 +113,6 @@ public class AIEnemyPistol : EnemyPistol
         }
 
         
-    }
-    public void chanceBulletDamage(){
-        setBulletDamage(5.0f);    
     }
     void goWalk(){
         direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -194,30 +189,6 @@ public class AIEnemyPistol : EnemyPistol
         bullet.enemy = GetComponent<AIEnemyPistol>();
         Rigidbody2D _rbBullet = enemyBullet.GetComponent<Rigidbody2D>();
         _rbBullet.linearVelocity = (target[0].position - transform.position).normalized * _bulletSpeed;
-        SoundAttack();
-    }
-
-    void SoundAttack(){
-        if(playerPhobia.phobiaSuara){
-            Vector2 meeleDirection = (target[0].position - transform.position).normalized;
-            float angle = Mathf.Atan2(meeleDirection.y, meeleDirection.x) * Mathf.Rad2Deg;
-
-            Vector2 attackCenter = (Vector2)transform.position + meeleDirection * MeeleRange;
-            Collider2D[] players = Physics2D.OverlapBoxAll(attackCenter, MeeleSize, angle, _playerLayer);
-
-            foreach (Collider2D player in players){
-                if (player.gameObject.CompareTag("Player")){
-                    havedoneattack = true;
-                    Debug.Log("Player terkena serangan suara!");
-                    HealthController healthController = player.GetComponent<HealthController>();
-                    if (healthController != null){
-                        healthController.IsInvicible = false;
-                        playerPhobia.lostSanity(5);
-                        healthController.TakeDamage(5);
-                    }
-                }
-            }
-        }
     }
 
     public void goDie(){
