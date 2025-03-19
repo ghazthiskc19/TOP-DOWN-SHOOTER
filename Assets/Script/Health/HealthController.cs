@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private float _currentHealth;
@@ -39,6 +38,20 @@ public class HealthController : MonoBehaviour
     public UnityEvent OnDied;
     public UnityEvent OnDamaged;
     public UnityEvent OnHealthChanged;
+    public bool gotDOT;
+    float elapsedTime = 0f;
+    public float duration = 3f;
+
+    private void Update()
+    {
+        if (gotDOT){
+            TakeDamage(3 * Time.deltaTime);
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= duration){
+                StopDOT();
+            }
+        }
+    }
     public void TakeDamage(float damageAmount){
         if(_currentHealth == 0){
             return;
@@ -49,6 +62,7 @@ public class HealthController : MonoBehaviour
         }
 
         if(IsInvicible){
+            IsInvicible = false;
             return;
         }
         _currentHealth -= damageAmount; 
@@ -78,7 +92,6 @@ public class HealthController : MonoBehaviour
             _currentHealth = _maxHealth;
         }
     }
-
     public void ResetHealth()
     {
         if(GetComponent<PlayerMovement>()){
@@ -97,5 +110,19 @@ public class HealthController : MonoBehaviour
             }
         }
     }
+    public void StartDOT(float dotDuration)
+    {
+        if (!gotDOT)
+        {
+            gotDOT = true;
+            duration = dotDuration;
+            elapsedTime = 0f;
+        }
+    }
 
+    public void StopDOT()
+    {
+        gotDOT = false;
+        elapsedTime = 0f;
+    }
 }

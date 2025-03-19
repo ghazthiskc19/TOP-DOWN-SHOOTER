@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour
+public class EnemyBulletMeele : MonoBehaviour
 {
     private Camera _camera;
-    public AIEnemy enemy;
+    public AIEnemyMeele enemy;
 
     void Awake()
     {
@@ -20,7 +20,11 @@ public class EnemyBullet : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player")){
             var healthController = collision.gameObject.GetComponent<HealthController>();
-            healthController.TakeDamage(enemy.bulletDamage);
+            healthController.TakeDamage(enemy.getBulletDamage());
+            if(GetComponent<SanityController>()){
+                SanityController sanity = gameObject.GetComponent<SanityController>();
+                sanity.lostSanity(8);
+            }
         }
         if(collision.gameObject.CompareTag("Obstacle")){
              Destroy(gameObject);

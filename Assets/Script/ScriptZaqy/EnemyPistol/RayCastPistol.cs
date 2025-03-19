@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class RayCast : MonoBehaviour
+public class RayCastPistol : MonoBehaviour
 {
     public GameObject obstacleRayObject;
     public float rayDistance;
@@ -11,7 +11,7 @@ public class RayCast : MonoBehaviour
     Vector2 rayCastDirection;
     Vector2 rayCastDirection1;
     Vector2 rayCastDirection2;
-    public AIEnemy enemy;
+    public AIEnemyPistol enemy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public void rayControl(Vector2 direction){

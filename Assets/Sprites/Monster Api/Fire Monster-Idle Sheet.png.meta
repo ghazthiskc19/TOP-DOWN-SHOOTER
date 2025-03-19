@@ -1,37 +1,22 @@
 fileFormatVersion: 2
-guid: 151d17ff77891164db999303ff3818b8
+guid: 6afb527b512abdc49a12758165efdcc3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 410520783823354539
-    second: Enemy dead-Sheet_0
+      213: 2476533124540291382
+    second: Fire Monster-Idle Sheet_0
   - first:
-      213: 5647278004974683849
-    second: Enemy dead-Sheet_1
+      213: -3745275689388590177
+    second: Fire Monster-Idle Sheet_1
   - first:
-      213: 5806056901837833595
-    second: Enemy dead-Sheet_2
+      213: -4418119845075656396
+    second: Fire Monster-Idle Sheet_2
   - first:
-      213: 8666447122789904975
-    second: Enemy dead-Sheet_3
+      213: 1875743084949104270
+    second: Fire Monster-Idle Sheet_3
   - first:
-      213: 4010696813014267650
-    second: Enemy dead-Sheet_4
-  - first:
-      213: 6960016860014673117
-    second: Enemy dead-Sheet_5
-  - first:
-      213: 5793126748504566974
-    second: Enemy dead-Sheet_6
-  - first:
-      213: -3719026395939872321
-    second: Enemy dead-Sheet_7
-  - first:
-      213: 3704826399860621129
-    second: Enemy dead-Sheet_8
-  - first:
-      213: -4529242161070160060
-    second: Enemy dead-Sheet_9
+      213: 1930083368284172525
+    second: Fire Monster-Idle Sheet_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -78,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 22
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -127,7 +112,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy dead-Sheet_0
+      name: Fire Monster-Idle Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -140,16 +125,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 68838fcaccf09284f916aac046f9109f
-      internalID: -608030939
+      spriteID: 63956ba61c96e5220800000000000000
+      internalID: 2476533124540291382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy dead-Sheet_1
+      name: Fire Monster-Idle Sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -162,16 +147,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f52509a0a2539e04385fa51442a4a433
-      internalID: -1230056758
+      spriteID: f9b36149a9b160cc0800000000000000
+      internalID: -3745275689388590177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy dead-Sheet_2
+      name: Fire Monster-Idle Sheet_2
       rect:
         serializedVersion: 2
         x: 64
@@ -184,16 +169,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 4de101545745f9d4c93d5e569e1e54c9
-      internalID: 1362970116
+      spriteID: 431692bb86fafa2c0800000000000000
+      internalID: -4418119845075656396
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy dead-Sheet_3
+      name: Fire Monster-Idle Sheet_3
       rect:
         serializedVersion: 2
         x: 96
@@ -206,16 +191,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: cae5b5b3fcea21b4aa74142bc4cb4c6d
-      internalID: 219309845
+      spriteID: e86694cc56af70a10800000000000000
+      internalID: 1875743084949104270
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy dead-Sheet_4
+      name: Fire Monster-Idle Sheet_4
       rect:
         serializedVersion: 2
         x: 128
@@ -228,97 +213,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 417b517cb7c1da548a3c448d7ca75ac5
-      internalID: -135339816
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy dead-Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f3c52611e14f624480ca8da1c1608aa
-      internalID: 1255743215
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy dead-Sheet_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e3d12f696a1aa84aa4b3d9e8a69b052
-      internalID: 183806549
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy dead-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 243bcd6cf3005fd4a9b59742e21608c5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy dead-Sheet_8
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 398b7bc89cb187e418e5fd3d82862ecf
-      internalID: 599826643
+      spriteID: de0b771f89809ca10800000000000000
+      internalID: 1930083368284172525
       vertices: []
       indices: 
       edges: []
@@ -327,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 987dd0bf41f08774694c4d0ca240e424
+    spriteID: e54fbedee52809b4a91c9ce93047ea30
     internalID: 0
     vertices: []
     indices: 
@@ -337,15 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Enemy dead-Sheet_0: -608030939
-      Enemy dead-Sheet_1: -1230056758
-      Enemy dead-Sheet_2: 1362970116
-      Enemy dead-Sheet_3: 219309845
-      Enemy dead-Sheet_4: -135339816
-      Enemy dead-Sheet_5: 1255743215
-      Enemy dead-Sheet_6: 183806549
-      Enemy dead-Sheet_7: -1663086511
-      Enemy dead-Sheet_8: 599826643
+      Fire Monster-Idle Sheet_0: 2476533124540291382
+      Fire Monster-Idle Sheet_1: -3745275689388590177
+      Fire Monster-Idle Sheet_2: -4418119845075656396
+      Fire Monster-Idle Sheet_3: 1875743084949104270
+      Fire Monster-Idle Sheet_4: 1930083368284172525
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
