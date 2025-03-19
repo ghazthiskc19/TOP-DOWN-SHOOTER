@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.F2))
         {
-            SaveSystem.Load();
+            LoadGame();
         }
         if(!_isAiming){
             _animator.SetFloat(_vertical, _moveInput.y);
@@ -56,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
     {
         // Smoothing movement
         SetPlayerVelocity();      
+    }
+
+    public  void LoadGame()
+    {
+        SaveSystem.Load();
     }
 
     private void SetPlayerVelocity()

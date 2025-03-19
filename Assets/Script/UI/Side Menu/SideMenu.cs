@@ -10,9 +10,9 @@ public class SideMenu : MonoBehaviour
     public GameObject sideMenuPanel; // Panel yang akan muncul
     public Volume globalVolume; // Assign Volume dari Inspector
     private DepthOfField dof;
-    private CanvasGroup sideMenuCanvasGroup;
     public CinemachineVirtualCamera _CMVM;
     private bool isPaused = false;
+    private CanvasGroup sideMenuCanvasGroup;
     private float slideDuration = 0.3f; // Durasi animasi
     private float zoom = 0.5f;
     private float normalOrthoSize = 5f;
