@@ -10,10 +10,10 @@ public class EnemyBulletPistol : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player")){
             var healthController = collision.gameObject.GetComponent<HealthController>();
-            healthController.TakeDamage(enemy.getBulletDamage());
             if(collision.gameObject.GetComponent<SanityController>()){
                 SanityController sanity = collision.gameObject.GetComponent<SanityController>();
                 sanity.lostSanity(8);
+                healthController.TakeDamage(enemy.getBulletDamage());
                 if(sanity.phobiaDarah){
                     healthController.StartDOT(3f);
                 }

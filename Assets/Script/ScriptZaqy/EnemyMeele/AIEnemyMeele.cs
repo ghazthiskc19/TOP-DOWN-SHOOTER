@@ -38,6 +38,7 @@ public class AIEnemyMeele : EnemyMeele
 
         InvokeRepeating("UpdatePath", 0f, 1f);
         seeker.StartPath(rb.position, target[nextTarget].position,  OnPathComplete);
+        enemyAnimation.animControl(direction);
     }
 
     
@@ -45,7 +46,7 @@ public class AIEnemyMeele : EnemyMeele
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(playerPhobia.phobiaApi && anim.GetLayerWeight(0) == 1){
+        if(playerPhobia.phobiaDarah && anim.GetLayerWeight(0) == 1){
             anim.SetLayerWeight(2, 1);
             anim.SetLayerWeight(0, 0);
         }
@@ -54,7 +55,6 @@ public class AIEnemyMeele : EnemyMeele
             anim.SetBool("idle", true);
         }
         if(trackPlayer){
-            Debug.Log(target);
             enemyRayCast.rayForChase(target);
         }
         else{
@@ -247,10 +247,12 @@ public class AIEnemyMeele : EnemyMeele
                 
                 HealthController healthController = player.GetComponent<HealthController>();
                 if (healthController != null)
-                {
-                    healthController.TakeDamage(getBulletDamage());
+                {   
                     SanityController sanity = player.gameObject.GetComponent<SanityController>();
                     sanity.lostSanity(3);
+                    healthController.TakeDamage(getBulletDamage());
+                    
+                    Debug.Log("lost sanity");
                     if(sanity.phobiaApi){
                         healthController.StartDOT(3f);
                     }
