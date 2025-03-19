@@ -92,7 +92,7 @@ public class HealthController : MonoBehaviour
             _currentHealth = _maxHealth;
         }
     }
-    public void ResetHealth()
+   public void ResetHealth()
     {
         if(GetComponent<PlayerMovement>()){
             UpdateAllHealthBarsPlayer((a) =>  {

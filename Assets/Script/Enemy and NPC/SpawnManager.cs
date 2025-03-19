@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] NpcObjects;
     public void GetObjectsList()
     {
-        enemyObjects = GetGameObjectsByComponent<AIEnemy>();
+        enemyObjects = GetGameObjectsByComponent<EnemyAnimControl>();
         NpcObjects = GetGameObjectsByComponent<DetectQTE>();
     }
 
