@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private const string _vertical = "Vertical";
     private const string _LastHorizontal = "LastHorizontal";
     private const string _LastVertical = "LastVertical";
+    private bool _isPlayingWalkAudio = false;
     private Gun _gun;
     void Awake()
     {
@@ -71,6 +73,9 @@ public class PlayerMovement : MonoBehaviour
             ref _movementInputSmoothVelocity,
             0.1f
         );
+        if(!_isAiming && _moveInput.magnitude > 0.1f && !_isMeeleAttack && !_isPlayingWalkAudio){
+            StartCoroutine(WalkAudio(SoundManager.instance.JalanVer1));
+        }
         // Perubahan rb mending simpen disini
         if(!_isAiming && !_isMeeleAttack){
             _rb.linearVelocity = _smoothedMovement * _moveSpeed;
@@ -81,6 +86,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         HandlePlayerWhenGoingOutside();
+    }
+
+    private IEnumerator WalkAudio(AudioClip audio){
+        _isPlayingWalkAudio = true;
+        SoundManager.instance.PlaySFX(audio);
+        yield return new WaitForSeconds(audio.length);
+        _isPlayingWalkAudio = false;
     }
 
     private void HandlePlayerWhenGoingOutside(){
@@ -142,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
     public void Save(ref PlayerSaveData data)
     {
         data.playerPos = RespawnController.instance.lastCheckpointPos;
-        data.currentHealth = HealthController.GetCurrentHealth();
+        data.currentHealth = HealthController._maxHealth;
         Debug.Log(data.currentHealth);
     }
     public void Load(PlayerSaveData data)

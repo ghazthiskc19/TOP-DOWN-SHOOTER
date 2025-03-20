@@ -72,7 +72,7 @@ public class SpawnManager : MonoBehaviour
 
             var saveData = data.EnemyData.Enemies.FirstOrDefault(x => x.ID == uniqueID);
 
-            if(!string.IsNullOrEmpty(saveData.ID))
+            if(!string.IsNullOrEmpty(saveData.ID) && enemyHealth.GetCurrentHealth() < 0)
             {
                 enemy.transform.position = saveData.position;
                 enemyHealth.SetCurrentHealth(saveData.amountHealth);

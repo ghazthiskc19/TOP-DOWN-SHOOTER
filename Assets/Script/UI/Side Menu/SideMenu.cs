@@ -17,6 +17,7 @@ public class SideMenu : MonoBehaviour
     private float zoom = 0.5f;
     private float normalOrthoSize = 5f;
     private float targetOrthoSize = 4f;
+    public GameObject overlayMenu;
     public AnimationCurve animationCurve;
 
     void Start()
@@ -46,6 +47,7 @@ public class SideMenu : MonoBehaviour
         if (isPaused)
         {
             OpenSideMenu();
+            overlayMenu.SetActive(false);
         }
         else
         {

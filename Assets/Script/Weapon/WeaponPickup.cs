@@ -28,8 +28,9 @@ public class WeaponPickup : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.GetComponent<PlayerMovement>()){
+            Gun weapon = GetComponent<Gun>();
             _interractText.GetComponent<CanvasGroup>().alpha = 1f;
-            _interractText.GetComponentInChildren<TMP_Text>().text = "Press <F> to interract";
+            _interractText.GetComponentInChildren<TMP_Text>().text = "Press <F> to Collect "+weapon._weaponName;
         }
     }
 

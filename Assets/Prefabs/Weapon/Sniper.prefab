@@ -111,10 +111,11 @@ MonoBehaviour:
   _currentAmmo: 5
   _leftOverAmmo: 15
   _fireRate: 1.5
-  _reloadTime: 5
+  _reloadTime: 2
   _damage: 100
   _bulletSpeed: 30
   _bullet: {fileID: 5517102115687532194, guid: 037c521e544270149b9c1cc831807bcd, type: 3}
+  AudioAttack: {fileID: 8300000, guid: 65c95eb16c5a01344af29359ad4fb127, type: 3}
 --- !u!1 &5559279951886401989
 GameObject:
   m_ObjectHideFlags: 0

@@ -115,6 +115,7 @@ MonoBehaviour:
   _damage: 35
   _bulletSpeed: 10
   _bullet: {fileID: 5517102115687532194, guid: 9166c7e1a588dff44b191e6d4c107a24, type: 3}
+  AudioAttack: {fileID: 8300000, guid: bccd15bcac75e424688c2d565cc48e4c, type: 3}
 --- !u!1 &5559279951886401989
 GameObject:
   m_ObjectHideFlags: 0

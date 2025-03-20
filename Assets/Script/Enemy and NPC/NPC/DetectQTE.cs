@@ -12,11 +12,13 @@ public class DetectQTE : MonoBehaviour
     public float QTEAngle;
     public LayerMask playerMask;
     public GameObject QTEWrapper;
+    public GameObject interractText;
+    public GameObject healthPrefabs;
+    public float chanceDropHealth;
     private Vector2 QTECenter;
     private UnityEngine.UI.Image _foregroundCureFill;
     private Transform curingBar;
     public AnimationCurve animationCurve;
-    public GameObject interractText;
     public  bool QTEStatus;
     public bool LastWinResult;
     private Animator _animator;
@@ -98,6 +100,12 @@ public class DetectQTE : MonoBehaviour
         if(status){
             if(MyQTEManager.instance.LastQTEWin){
                 _animator.SetTrigger("IsWin");
+                Vector3 healtPos = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z);
+                if(Random.Range(0, 1) > chanceDropHealth)
+                {
+                    GameObject healthCollect = Instantiate(healthPrefabs, healtPos, Quaternion.identity);
+                }
+                Instantiate(healthPrefabs, healtPos, Quaternion.identity);
             }else{
                 _animator.SetTrigger("IsLose");
             }

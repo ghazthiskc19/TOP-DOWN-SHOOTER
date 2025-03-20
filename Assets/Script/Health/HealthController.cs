@@ -4,12 +4,13 @@ using UnityEngine.Events;
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private float _currentHealth;
-    [SerializeField] private float _maxHealth;
+    public float _maxHealth {get; private set;}
     private Animator _animator;
     void Awake()
     {
         _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
         UpdateAllHealthBarsPlayer((a) => a.UpadteHealthBar(this));
+        _maxHealth = _currentHealth;
     }
 
     public float GetCurrentHealth()
@@ -19,8 +20,8 @@ public class HealthController : MonoBehaviour
 
     public void SetCurrentHealth(float value){
         if(GetComponent<PlayerMovement>()){
-            UpdateAllHealthBarsPlayer((a) =>  {
-                _currentHealth = value;
+            UpdateAllHealthBarsPlayer((a) =>{
+                _currentHealth = _maxHealth;
                 a.UpadteHealthBar(this);
             });
         }else{
@@ -68,6 +69,11 @@ public class HealthController : MonoBehaviour
         _currentHealth -= damageAmount; 
         if(GetComponent<PlayerMovement>()){
             UpdateAllHealthBarsPlayer((a) => a.UpadteHealthBar(this));
+            SoundManager.instance.PlaySFX(SoundManager.instance.HitPlayer);
+        }
+
+        if(GetComponent<EnemyAnimControl>()){
+            SoundManager.instance.PlaySFX(SoundManager.instance.HitEnemy);
         }
         OnHealthChanged.Invoke();
         if(_currentHealth <= 0 ){
@@ -82,14 +88,13 @@ public class HealthController : MonoBehaviour
         if(_currentHealth == _maxHealth){
             return;
         }
-
         _currentHealth += amountToAdd;
-        if(GetComponent<PlayerMovement>()){
-            UpdateAllHealthBarsPlayer((a) => a.UpadteHealthBar(this));
-        }
         OnHealthChanged.Invoke();
         if(_currentHealth >= _maxHealth){
             _currentHealth = _maxHealth;
+        }
+        if(GetComponent<PlayerMovement>()){
+            UpdateAllHealthBarsPlayer((a) => a.UpadteHealthBar(this));
         }
     }
    public void ResetHealth()

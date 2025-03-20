@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Pathfinding;
 public class EnemyAnimControl : MonoBehaviour
 {
     public Animator anim;
