@@ -38,6 +38,8 @@ public class MyQTEManager : MonoBehaviour
     private List<GameObject> listQTEButtons = new List<GameObject>();
     public event Action<int, int> OnPointChanged;
     public DetectQTE _activeQTE;
+    public SanityController sanity;
+    public int sanityAmount;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -111,10 +113,12 @@ public class MyQTEManager : MonoBehaviour
         if(win)
         {
             PlayerInformation.instance.AddCure();
+            sanity.gainSanity(sanityAmount);
         }
         else
         {
             Debug.Log("Kalah kocak");
+            sanity.lostSanity(sanityAmount);
         }
         _CMVM.Follow = CameraPosition.transform;
         StartCoroutine(ZoomEffect(false));

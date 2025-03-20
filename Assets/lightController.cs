@@ -9,6 +9,7 @@ public class LightController : MonoBehaviour
 
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
+    bool blackBG = false;
 
     void Start()
     {
@@ -23,41 +24,32 @@ public class LightController : MonoBehaviour
         backgroundImage.color = startColor;
     }
     public void changeLightColor(){
-        StartCoroutine(ChangeColorAndReverse());
-    }
-
-    private System.Collections.IEnumerator ChangeColorAndReverse()
-    {
-        // Ubah warna dari startColor ke endColor
-        yield return StartCoroutine(ChangeColor(startColor, endColor, transitionDuration));
-
-        // Tunggu selama delayBeforeReverse detik
-        yield return new WaitForSeconds(delayBeforeReverse);
-
-        // Ubah warna dari endColor kembali ke startColor
-        yield return StartCoroutine(ChangeColor(endColor, startColor, transitionDuration));
+        StartCoroutine(ChangeColor());
     }
 
     // Coroutine untuk mengubah warna secara bertahap
-    private System.Collections.IEnumerator ChangeColor(Color from, Color to, float time)
+    private System.Collections.IEnumerator ChangeColor()
     {
         float elapsedTime = 0f;
 
-        while (elapsedTime < time)
+        while (elapsedTime < transitionDuration)
         {
             // Hitung progress perubahan warna (0 sampai 1)
-            float t = elapsedTime / time;
+            float t = elapsedTime / transitionDuration;
 
-            // Interpolasi warna dari `from` ke `to`
-            backgroundImage.color = Color.Lerp(from, to, t);
+            if(!blackBG){
+                backgroundImage.color = Color.Lerp(startColor, endColor, t);
+            }
+            else{
+                backgroundImage.color = Color.Lerp(endColor, startColor, t);
+            }
+            
 
             // Tambahkan waktu yang telah berlalu
             elapsedTime += Time.deltaTime;
 
             yield return null; // Tunggu frame berikutnya
         }
-
-        // Pastikan warna akhir tepat
-        backgroundImage.color = to;
+        blackBG = !blackBG;
     }
 }

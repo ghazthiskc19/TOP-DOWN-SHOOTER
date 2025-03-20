@@ -12,6 +12,8 @@ public class SanityController : MonoBehaviour
     [SerializeField] private EnemySniper enemySniper;
     [SerializeField] private EnemySemi enemySemi;
     [SerializeField] private EnemySMG enemySMG;
+    [SerializeField] private MyQTEManager QTEManager;
+    [SerializeField] private MyQTEEvent QTEEvent;
 
     int _sanityLevel;
     public float RemainingSanity
@@ -57,15 +59,18 @@ public class SanityController : MonoBehaviour
                 getPhobiaDarah();
             }
             availablePhobias.RemoveAt(randomIndex);
+            QTEManager.generateButton = 4;
         }
         else
         {
+            
             if (availablePhobias.Count > 0)
             {
                 int randomIndex = Random.Range(0, availablePhobias.Count);
                 string selectedPhobia = availablePhobias[randomIndex];
                 ApplyPhobia(selectedPhobia);
                 availablePhobias.RemoveAt(randomIndex);
+                QTEManager.generateButton = 5;
             }
         }
         sanitylevelChanged.Invoke();
