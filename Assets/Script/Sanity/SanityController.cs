@@ -68,6 +68,7 @@ public class SanityController : MonoBehaviour
                 availablePhobias.RemoveAt(randomIndex);
             }
         }
+        sanitylevelChanged.Invoke();
     }
 
     public void lostSanity(int sanityLost){

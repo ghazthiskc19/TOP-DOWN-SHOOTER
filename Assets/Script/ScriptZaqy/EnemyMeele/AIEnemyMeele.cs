@@ -160,6 +160,9 @@ public class AIEnemyMeele : EnemyMeele
         idle = false;
     }
     public void foundPlayer(){
+        if(!gameObject.GetComponent<AIEnemyMeele>().enabled){
+            return;
+        }
         timerLostPlayer = timerSearchPlayer + 1;
         trackPlayer = true;
         anim.SetBool("idle", false);
@@ -214,6 +217,9 @@ public class AIEnemyMeele : EnemyMeele
     }
 
     public void goDie(){
+        if(!gameObject.GetComponent<AIEnemyMeele>().enabled){
+            return;
+        }
         PlayerInformation.instance.currentKill++;
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemyMeele>().enabled = false;

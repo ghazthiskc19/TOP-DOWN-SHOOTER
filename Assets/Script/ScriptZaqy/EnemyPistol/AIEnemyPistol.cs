@@ -161,6 +161,9 @@ public class AIEnemyPistol : EnemyPistol
         idle = false;
     }
     public void foundPlayer(){
+        if(!gameObject.GetComponent<AIEnemyPistol>().enabled){
+            return;
+        }
         timerLostPlayer = timerSearchPlayer + 1;
         trackPlayer = true;
         anim.SetBool("idle", false);
@@ -192,6 +195,9 @@ public class AIEnemyPistol : EnemyPistol
     }
 
     public void goDie(){
+        if(!gameObject.GetComponent<AIEnemyPistol>().enabled){
+            return;
+        }
         PlayerInformation.instance.currentKill++;
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemyPistol>().enabled = false;
