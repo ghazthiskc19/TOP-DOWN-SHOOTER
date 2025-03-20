@@ -30,16 +30,12 @@ public class RespawnController : MonoBehaviour
             _interractText.GetComponentInChildren<TMP_Text>().text = "You reach checkpoint and game will be saved";
             yield return new WaitForSeconds(duration);
             _interractText.GetComponent<CanvasGroup>().alpha = 0;
+            hasReachCheckpoint = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         hasReachCheckpoint = false;
-    }
-
-    void Start()
-    {
-        Debug.Log(lastCheckpointPos.x + " " + lastCheckpointPos.y);
     }
 }

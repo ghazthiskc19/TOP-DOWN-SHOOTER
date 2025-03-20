@@ -15,6 +15,8 @@ public class Gun : MonoBehaviour
     public float _damage;
     public float _bulletSpeed;
     public GameObject _bullet;
+    public AudioClip AudioAttack;
+    private AudioSource reloadAudioSource;
     private PlayerShoot _playerShoot;
     private PlayerMovement _playerMovement; 
     private bool isReloading = false;
@@ -67,6 +69,20 @@ public class Gun : MonoBehaviour
             _reloadUI.alpha = 1f;
         }
         if(isReloading){
+            if(!SoundManager.instance.reloadSource.isPlaying){
+                if(_weaponName == "Sniper")
+                {
+                    if(_currentAmmo == 0){
+                        reloadAudioSource = SoundManager.instance.PlayReloadSFX(SoundManager.instance.SniperReload);
+                    }else{
+                        reloadAudioSource = SoundManager.instance.PlayReloadSFX(SoundManager.instance.SniperReload);
+                    }
+                }else
+                {
+                    reloadAudioSource = SoundManager.instance.PlayReloadSFX(SoundManager.instance.revolverReload);
+                }
+            }
+            
             timer += Time.deltaTime;
             _reloadText.text =  (_reloadTime - timer).ToString("F1") + "s";
             _reloadImageFill.fillAmount = timer / _reloadTime;
@@ -75,6 +91,12 @@ public class Gun : MonoBehaviour
                 _reloadUI.alpha = 0f;
             }
         }
+    }
+
+    private IEnumerator PlayReloadWithDelay(AudioClip audio, float time)
+    {
+        yield return new WaitForSeconds(time);
+        reloadAudioSource = SoundManager.instance.PlayReloadSFX(audio);
     }
 
     public void Fire()
@@ -106,10 +128,11 @@ public class Gun : MonoBehaviour
     }
 
     private void CancelReload()
-    {
+    {   
         isReloading = false;
         timer = 0f;
         _pressReloadKey = false;
+        SoundManager.instance.StopReloadSFX();
         Debug.Log("Reload dibatalkan karena tidak lagi aim.");
     }    
 }

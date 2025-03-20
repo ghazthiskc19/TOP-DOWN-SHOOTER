@@ -52,6 +52,7 @@ public class    PlayerShoot : MonoBehaviour
             ChangeSpriteBasedOnMouse();
             if(_continousAttack && !_gun._isReloading && _canShoot){
                 _crosshairController.ExpandCrosshair();
+                SoundManager.instance.PlaySFX(_weaponHolder.GetCurrentWeapon().AudioAttack);
                 _weaponHolder.GetCurrentWeapon().Fire();
                 _crosshairController.ResetCrosshair();
                 timer = _weaponHolder.GetCurrentWeapon()._fireRate;
@@ -92,8 +93,8 @@ public class    PlayerShoot : MonoBehaviour
         if(_gun == null) return;
         if(_gun._currentAmmo == 0){
             for(int i = 0; i < _currentBullet.Length; i++){
-                _currentBullet[i].color = Color.blue;
-                _leftOverBullet[i].color = Color.blue;
+                _currentBullet[i].color = Color.red;
+                _leftOverBullet[i].color = Color.red;
             }
         }else{
             for(int i = 0; i < _currentBullet.Length; i++){
@@ -101,7 +102,6 @@ public class    PlayerShoot : MonoBehaviour
                 _leftOverBullet[i].color = Color.white;
             }
         }
-        // Debug.Log(_weaponHolder.GetCurrentWeapon()._leftOverAmmo + " !! " + _weaponHolder.GetCurrentWeapon()._currentAmmo);
         for(int i = 0; i < _currentBullet.Length; i++){
             _currentBullet[i].text = $"{_gun._currentAmmo} i";
             _leftOverBullet[i].text = $"{_gun._leftOverAmmo}";
@@ -140,8 +140,10 @@ public class    PlayerShoot : MonoBehaviour
             {
                 HealthController healthController = enemy.GetComponent<HealthController>();
                 healthController.TakeDamage(MeeleDamage);
+                SoundManager.instance.PlaySFX(SoundManager.instance.HitMeele);
             }
         }
+        SoundManager.instance.PlaySFX(SoundManager.instance.AttackMeele);
         yield return new WaitForSeconds(meeleDuration);
         _playerMovement._isMeeleAttack = false;
         _meeleAnimator.SetBool("IsMeeleAttack", _playerMovement._isMeeleAttack);
