@@ -68,6 +68,7 @@ public class MyQTEManager : MonoBehaviour
             Destroy(listQTEButtons[i]);
         }
         listQTEButtons.Clear();
+        Debug.Log("HadleClicknya");
         EndQTE(false);
     }
     void OnEnable()

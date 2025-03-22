@@ -5,7 +5,7 @@ public class EnemySniper : MonoBehaviour
     public Transform[] target;
     public int nextTarget;
     public static float speed = 800f;
-    public static float bulletDamage = 10;
+    public static float bulletDamage = 15f;
     public float nextWaypointDistance = 3f;
     public float idleDuration = 3f;
     public float _bulletSpeed;

@@ -50,6 +50,10 @@ public class AIEnemySemi : EnemySemi
             anim.SetLayerWeight(3, 1);
             anim.SetLayerWeight(0, 0);
         }
+        else if(!playerPhobia.phobiaApi && anim.GetLayerWeight(3) == 1){
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(0, 1);
+        }
         if(notPatrol){
             idle = true;
             anim.SetBool("idle", true);
@@ -183,6 +187,7 @@ public class AIEnemySemi : EnemySemi
         else{
             return;
         }
+        SoundManager.instance.PlaySFX(SoundManager.instance.Rifle);
         GameObject enemyBullet = Instantiate(_bulletPrefabs, transform.position, Quaternion.LookRotation(Vector3.forward, target[0].position - transform.position));
         var bullet = enemyBullet.GetComponent<EnemyBulletSemi>();
         bullet.enemy = GetComponent<AIEnemySemi>();

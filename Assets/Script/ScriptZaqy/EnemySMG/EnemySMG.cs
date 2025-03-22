@@ -5,7 +5,7 @@ public class EnemySMG : MonoBehaviour
     public Transform[] target;
     public int nextTarget;
     public float speed = 2f;
-    public static float bulletDamage = 10;
+    public static float bulletDamage = 4f;
     public float nextWaypointDistance = 3f;
     public float idleDuration = 3f;
     public float _bulletSpeed;

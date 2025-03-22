@@ -39,6 +39,7 @@ public class AIEnemySMG : EnemySMG
         anim = GetComponent<Animator>();
         _camera = Camera.main;
         _playerMovement = FindAnyObjectByType<PlayerMovement>();
+        _timeBetweenAttack = 0.8f;
 
         InvokeRepeating("UpdatePath", 0f, 1f);
         seeker.StartPath(rb.position, target[nextTarget].position,  OnPathComplete);
@@ -53,6 +54,10 @@ public class AIEnemySMG : EnemySMG
         if(playerPhobia.phobiaApi && anim.GetLayerWeight(0) == 1){
             anim.SetLayerWeight(3, 1);
             anim.SetLayerWeight(0, 0);
+        }
+        else if(!playerPhobia.phobiaDarah && anim.GetLayerWeight(3) == 1){
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(0, 1);
         }
         if(notPatrol){
             idle = true;
@@ -188,6 +193,7 @@ public class AIEnemySMG : EnemySMG
         else{
             return;
         }
+        SoundManager.instance.PlaySFX(SoundManager.instance.Rifle);
         GameObject enemyBullet = Instantiate(_bulletPrefabs, transform.position, Quaternion.LookRotation(Vector3.forward, target[0].position - transform.position));
         var bullet = enemyBullet.GetComponent<EnemyBulletSMG>();
         bullet.enemy = GetComponent<AIEnemySMG>();
