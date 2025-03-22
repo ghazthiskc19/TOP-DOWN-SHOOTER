@@ -18,19 +18,13 @@ public class RespawnController : MonoBehaviour
     {
         if(collision.CompareTag("Player")){
             lastCheckpointPos = collision.transform.position;
-            StartCoroutine(CheckpointUI(2));
-        }
-    }
-
-    private IEnumerator CheckpointUI(float duration)
-    {
-        if(!hasReachCheckpoint){
-            SaveSystem.Save();
-            _interractText.GetComponent<CanvasGroup>().alpha = 1;
-            _interractText.GetComponentInChildren<TMP_Text>().text = "You reach checkpoint and game will be saved";
-            yield return new WaitForSeconds(duration);
-            _interractText.GetComponent<CanvasGroup>().alpha = 0;
-            hasReachCheckpoint = true;
+            if(!hasReachCheckpoint){
+                SaveSystem.Save();
+                _interractText.GetComponent<CanvasGroup>().alpha = 1;
+                _interractText.GetComponentInChildren<TMP_Text>().text = "You reach checkpoint and game will be saved";
+                _interractText.GetComponent<CanvasGroup>().alpha = 0;
+                hasReachCheckpoint = true;
+            }
         }
     }
 

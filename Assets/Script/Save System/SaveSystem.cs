@@ -10,6 +10,8 @@ public class SaveSystem
         public SaveWeapon PlayerWeapon;
         public SpawnSave SpawnSave;
         public PlayerStats playerStats;
+        public PlayerSanity playerSanity;
+        public VolumeGame volumeController;
     }
 
     public static string SaveFileName()
@@ -31,7 +33,8 @@ public class SaveSystem
         PlayerMovement.instance.WeaponHolder.Save(ref _saveData.PlayerWeapon);
         PlayerMovement.instance.SpawnManager.Save(ref _saveData.SpawnSave);
         PlayerInformation.instance.Save(ref _saveData.playerStats);
-        
+        SanityController.instance.Save(ref _saveData.playerSanity);
+        VolumeController.instance.Save(ref _saveData.volumeController);
     }
 
     public static void Load()
@@ -47,6 +50,8 @@ public class SaveSystem
         PlayerMovement.instance.WeaponHolder.Load(_saveData.PlayerWeapon);
         PlayerMovement.instance.SpawnManager.Load(_saveData.SpawnSave);
         PlayerInformation.instance.Load(_saveData.playerStats);
+        SanityController.instance.Load(_saveData.playerSanity);
+        VolumeController.instance.Load(_saveData.volumeController);
     }
 
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -65,6 +66,10 @@ public class PlayerMovement : MonoBehaviour
         SaveSystem.Load();
     }
 
+    public void SaveGame()
+    {
+        SaveSystem.Save();
+    }
     private void SetPlayerVelocity()
     {
         _smoothedMovement = Vector2.SmoothDamp(
@@ -120,6 +125,20 @@ public class PlayerMovement : MonoBehaviour
     private void OnReload(InputValue input)
     {
         _gun.OnReload(input);
+    }
+
+    public void LastPositoin()
+    {
+        transform.position = RespawnController.instance.lastCheckpointPos;
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = new Vector2(-10.7f, -0.4f);
+    }
+    public void ResetPlayerSprite()
+    {
+        _animator.SetBool("IsDead", false);
     }
     public void SetAiming(bool isAiming){
         _isAiming = isAiming;

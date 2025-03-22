@@ -20,7 +20,6 @@ public class TutorialController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Masuk");
         if(collider.GetComponent<PlayerMovement>())
         {
             for(int i = 0; i < canvasGroups.Length; i++){

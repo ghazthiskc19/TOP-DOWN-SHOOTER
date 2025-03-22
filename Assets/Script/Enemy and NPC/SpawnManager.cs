@@ -71,11 +71,16 @@ public class SpawnManager : MonoBehaviour
             var enemyHealth = enemy.GetComponent<HealthController>();
 
             var saveData = data.EnemyData.Enemies.FirstOrDefault(x => x.ID == uniqueID);
-
-            if(!string.IsNullOrEmpty(saveData.ID) && enemyHealth.GetCurrentHealth() < 0)
+            if(!string.IsNullOrEmpty(saveData.ID))
             {
-                enemy.transform.position = saveData.position;
-                enemyHealth.SetCurrentHealth(saveData.amountHealth);
+                if(saveData.amountHealth > 0)
+                {
+                    enemy.transform.position = saveData.position;
+                    enemyHealth.SetCurrentHealth(saveData.amountHealth);
+                }else
+                {
+                    Destroy(enemy);
+                }
             }else
             {
                 Destroy(enemy);
