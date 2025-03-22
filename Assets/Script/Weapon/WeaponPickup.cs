@@ -19,6 +19,7 @@ public class WeaponPickup : MonoBehaviour
                 if(_weaponHolder != null)
                 {
                     _weaponHolder.EquipWeapon(gameObject);
+                    SoundManager.instance.PlaySFX(SoundManager.instance.getWeapon);
                     IsPickup = false;
                 }
             }

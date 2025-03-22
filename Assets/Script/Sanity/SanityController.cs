@@ -4,7 +4,13 @@ using System.Collections.Generic;
 
 public class SanityController : MonoBehaviour
 {
+    public static SanityController instance;
     [SerializeField] private float _currentSanity;
+    public float CurrentSanity
+    {
+        get => _currentSanity;
+        set => _currentSanity = value;
+    }
     [SerializeField] private float _MaxSanity;
     [SerializeField] private HealthController _health;
     [SerializeField] private EnemyMeele enemyMeele;
@@ -13,8 +19,6 @@ public class SanityController : MonoBehaviour
     [SerializeField] private EnemySemi enemySemi;
     [SerializeField] private EnemySMG enemySMG;
     [SerializeField] private MyQTEManager QTEManager;
-    [SerializeField] private MyQTEEvent QTEEvent;
-
     int _sanityLevel;
     public float RemainingSanity
     {
@@ -35,6 +39,10 @@ public class SanityController : MonoBehaviour
 
     void Start()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
         availablePhobias = new List<string> { "Api", "Darah", "Suara", "Kematian", "BendaTajam" };
         enemyPistol.setMeeleEnemy(false);
         enemyMeele.setMeeleSize(new Vector2(2f, 2f));
@@ -141,4 +149,22 @@ public class SanityController : MonoBehaviour
         enemyMeele.setAttackSpeed(0.5f);
         phobiaBendaTajam = true;
     }
+
+    public void Save(ref PlayerSanity data)
+    {
+        data.currentSanity = _currentSanity;
+    }
+
+    public void Load(PlayerSanity data)
+    {
+        _currentSanity = data.currentSanity;
+        OnSanityChanged.Invoke();
+    }
+}
+
+
+[System.Serializable]
+public struct PlayerSanity
+{
+    public float currentSanity;
 }

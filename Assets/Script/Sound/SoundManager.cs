@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,6 +8,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
     public AudioSource SFXSource;
     public AudioSource BGMSource;
+    public AudioSource typingAudioSource;
     // create header for sound source
     [Header("SFX Sound Meele")]
     public AudioClip HitMeele;
@@ -18,6 +20,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("SFX Sound Weapon Reload")]
     public AudioClip revolverReload;
+    public AudioClip getWeapon;
     public AudioClip SniperReload;
     [Header("SFX Sound Enemy Attack")]
     public AudioClip SeranganSuaraEnemy;
@@ -30,6 +33,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip JalanVer1;
     public AudioClip JalanVer2;
     public AudioClip JalanVer3;
+    public AudioClip TypingSound;
 
     [Header("BGM Soudn Ambience ")]
     public AudioClip Ambience;
@@ -42,6 +46,8 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             reloadSource = gameObject.AddComponent<AudioSource>(); 
+            typingAudioSource = gameObject.AddComponent<AudioSource>();
+            typingAudioSource.loop = true; // supaya looping otomatis
         }else
         {
             Destroy(gameObject);
@@ -84,5 +90,24 @@ public class SoundManager : MonoBehaviour
         BGMSource.loop = true;
         BGMSource.playOnAwake = false;
         BGMSource.Stop();
+    }
+
+    public void PlayLoopingSFX(AudioClip clip)
+    {
+        if (typingAudioSource.isPlaying)
+        {
+            typingAudioSource.Stop();
+        }
+
+        typingAudioSource.clip = clip;
+        typingAudioSource.Play();
+    }
+
+    public void StopLoopingSFX()
+    {
+        if (typingAudioSource.isPlaying)
+        {
+            typingAudioSource.Stop();
+        }
     }
 }

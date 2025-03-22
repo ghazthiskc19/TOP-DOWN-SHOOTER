@@ -218,7 +218,6 @@ private Vector2 GetRandomPosition()
         // Zoom effect
         _CMVM.Follow = NPC.transform;
         StartCoroutine(ZoomEffect(true));
-
         _activeQTE = NPC.GetComponent<DetectQTE>();
         btnSelfDestroy = false;
         QTEIsStart = true;
