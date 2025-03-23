@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
-using System.Collections.Generic;
 using Pathfinding;
 
 public class AIEnemyPistol : EnemyPistol
@@ -200,6 +199,7 @@ public class AIEnemyPistol : EnemyPistol
             return;
         }
         PlayerInformation.instance.currentKill++;
+        anim.SetBool("IsDead0", true);
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemyPistol>().enabled = false;
         GetComponent<Collider2D>().enabled = false;

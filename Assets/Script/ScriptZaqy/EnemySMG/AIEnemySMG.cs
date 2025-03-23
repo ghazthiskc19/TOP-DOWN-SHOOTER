@@ -211,6 +211,7 @@ public class AIEnemySMG : EnemySMG
 
     public void goDie(){
         PlayerInformation.instance.AddKill();
+        anim.SetBool("IsDead0", true);
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemySMG>().enabled = false;
         GetComponent<Collider2D>().enabled = false;

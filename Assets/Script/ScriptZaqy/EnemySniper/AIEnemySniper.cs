@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using Pathfinding;
 
 public class AIEnemySniper : EnemySniper
@@ -235,6 +234,7 @@ public class AIEnemySniper : EnemySniper
 
     public void goDie(){
         PlayerInformation.instance.currentKill++;
+        anim.SetBool("IsDead0", true);
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemySniper>().enabled = false;
         GetComponent<Collider2D>().enabled = false;

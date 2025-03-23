@@ -25,7 +25,6 @@ public class SanityController : MonoBehaviour
     private Animator _animator;
 
     public int _sanityLevel;
-    int _sanityLevel;
     public float RemainingSanity
     {
         get 

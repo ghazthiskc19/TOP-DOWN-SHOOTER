@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using Pathfinding;
 
 public class AIEnemySemi : EnemySemi
@@ -198,6 +197,7 @@ public class AIEnemySemi : EnemySemi
 
     public void goDie(){
         PlayerInformation.instance.currentKill++;
+        anim.SetBool("IsDead0", true);
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemySemi>().enabled = false;
         GetComponent<Collider2D>().enabled = false;

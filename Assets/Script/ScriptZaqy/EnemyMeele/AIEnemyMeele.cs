@@ -226,6 +226,7 @@ public class AIEnemyMeele : EnemyMeele
             return;
         }
         PlayerInformation.instance.currentKill++;
+        anim.SetBool("IsDead0", true);
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemyMeele>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
