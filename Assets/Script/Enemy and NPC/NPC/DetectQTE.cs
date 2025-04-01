@@ -1,8 +1,6 @@
 using System.Collections;
 using TMPro;
-using UnityEditor.AnimatedValues;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class DetectQTE : MonoBehaviour
 {

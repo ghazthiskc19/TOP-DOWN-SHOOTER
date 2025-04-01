@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class HealthBarUI : MonoBehaviour

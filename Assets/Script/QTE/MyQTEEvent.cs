@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 public class MyQTEEvent : MonoBehaviour, IPointerDownHandler
 {

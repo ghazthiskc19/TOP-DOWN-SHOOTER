@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class TutorialController : MonoBehaviour
 {

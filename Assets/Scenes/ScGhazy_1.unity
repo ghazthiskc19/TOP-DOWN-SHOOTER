@@ -15455,6 +15455,10 @@ PrefabInstance:
       value: AIEnemySemi, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1081331280878329029, guid: 4acd21f202a9822488176ce72653fd8f, type: 3}
+      propertyPath: OnHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 989688369}
+    - target: {fileID: 1081331280878329029, guid: 4acd21f202a9822488176ce72653fd8f, type: 3}
       propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -23274,6 +23278,10 @@ PrefabInstance:
       value: AIEnemyMeele, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 865161167080957976, guid: 493c2b335d9114b4fbbc61ac9cc3c3b2, type: 3}
+      propertyPath: OnHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 989688369}
+    - target: {fileID: 865161167080957976, guid: 493c2b335d9114b4fbbc61ac9cc3c3b2, type: 3}
       propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -27247,6 +27255,10 @@ PrefabInstance:
       propertyPath: OnDamaged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: AIEnemySMG, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 243984475313695683, guid: 3d9d253e88960ac4492ca73407151d27, type: 3}
+      propertyPath: OnHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 989688369}
     - target: {fileID: 243984475313695683, guid: 3d9d253e88960ac4492ca73407151d27, type: 3}
       propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
@@ -52441,6 +52453,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: EnemyZaqyPistol (1)_1
+--- !u!114 &989688369 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 865161167080957976, guid: 493c2b335d9114b4fbbc61ac9cc3c3b2, type: 3}
+  m_PrefabInstance: {fileID: 497598798}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560392943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b54900649712a44b9f2d2cef2b3181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &989828471
 GameObject:
   m_ObjectHideFlags: 0
@@ -73770,6 +73793,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2082790409}
     - target: {fileID: 2592057967365781664, guid: e07ca33434a608049b6e775b7f90cf07, type: 3}
+      propertyPath: OnHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 989688369}
+    - target: {fileID: 2592057967365781664, guid: e07ca33434a608049b6e775b7f90cf07, type: 3}
       propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -74528,6 +74555,10 @@ PrefabInstance:
       propertyPath: OnHealthChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4945818084665990632, guid: 2bc2765b5999cc541a2e0c94c58091a5, type: 3}
+      propertyPath: OnHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 989688369}
     - target: {fileID: 4945818084665990632, guid: 2bc2765b5999cc541a2e0c94c58091a5, type: 3}
       propertyPath: OnHealthChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 

@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UIElements;
 public class ScoreUI : MonoBehaviour
 {
     private TMP_Text scoreText;
