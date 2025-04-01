@@ -137,5 +137,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8b5a24ecf15bd4caa8a0b413f325ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthAmount: 10
+  _healthAmount: 150
   _textCollectable: {fileID: 586709182859664669, guid: 89e58190fa99e724ba4100b0f8a67bb9, type: 3}

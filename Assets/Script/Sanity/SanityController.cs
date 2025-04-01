@@ -19,7 +19,12 @@ public class SanityController : MonoBehaviour
     [SerializeField] private EnemySemi enemySemi;
     [SerializeField] private EnemySMG enemySMG;
     [SerializeField] private MyQTEManager QTEManager;
-    int _sanityLevel;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerShoot playerShoot;
+    [SerializeField] private AudioSource sound;
+    private Animator _animator;
+
+    public int _sanityLevel;
     public float RemainingSanity
     {
         get 
@@ -35,14 +40,18 @@ public class SanityController : MonoBehaviour
     public bool phobiaSuara;
     public bool phobiaKematian;
     public bool phobiaBendaTajam;
+    public bool phobiaInvincibility;
     private List<string> availablePhobias;
 
     void Start()
     {
+        _animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
+
         if(instance == null)
         {
             instance = this;
         }
+
         availablePhobias = new List<string> { "Api", "Darah", "Suara", "Kematian", "BendaTajam" };
         enemyPistol.setMeeleEnemy(false);
         enemyMeele.setMeeleSize(new Vector2(2f, 2f));
@@ -51,9 +60,28 @@ public class SanityController : MonoBehaviour
 
         enemySniper.setAttackRange(20f);
     }
+    public void restartSanity(){
+        availablePhobias = new List<string> { "Api", "Darah", "Suara", "Kematian", "BendaTajam" };
+        enemyPistol.setMeeleEnemy(false);
+        enemyMeele.setMeeleSize(new Vector2(2f, 2f));
+        enemyMeele.setAttackSpeed(1f);
+        enemyMeele.setSpeed(800f);
+        phobiaApi = false;
+        phobiaBendaTajam = false;
+        phobiaDarah = false;
+        phobiaInvincibility = false;
+        phobiaKematian = false;
+        phobiaSuara = false;
 
-    public void goInsane(){
+        enemySniper.setAttackRange(20f);
+        _currentSanity = 0;
+        OnSanityChanged.Invoke();
+        _animator.SetBool("IsSuicide", false);
+    }
+
+    public void goInsanePlayer(){
         _sanityLevel++;
+        _currentSanity = (100 * _sanityLevel);
 
         if (_sanityLevel == 1)
         {
@@ -81,21 +109,28 @@ public class SanityController : MonoBehaviour
                 QTEManager.generateButton = 5;
             }
         }
-        sanitylevelChanged.Invoke();
+        sound.volume = 1;
+        playerMovement.enabled = true;
+        playerShoot.enabled = true;
     }
 
     public void lostSanity(int sanityLost){
-        if(!_health.IsInvicible){
-            int sanityDamages = Random.Range(sanityLost, sanityLost + 5);
-            _currentSanity += sanityDamages;
-            OnSanityChanged.Invoke();
-            if(_currentSanity >= 350){
-                Suicide.Invoke();
-            }
-            if(_currentSanity >= (100 * _sanityLevel) + 100){
-                goInsane();
-                _currentSanity = (100 * _sanityLevel);
-            }
+        if(phobiaInvincibility){
+            return;
+        }
+        int sanityDamages = Random.Range(sanityLost, sanityLost + 5);
+        _currentSanity += sanityDamages;
+        OnSanityChanged.Invoke();
+        if(_currentSanity >= 350){
+            _animator.SetBool("IsSuicide", true);
+            Suicide.Invoke();
+        }
+        if(_currentSanity >= (100 * _sanityLevel) + 100){
+            phobiaInvincibility = true;
+            playerMovement.enabled = false;
+            playerShoot.enabled = false;
+            sound.volume = 0;
+            sanitylevelChanged.Invoke();
         }
     }
     public void gainSanity(int sanityGain){
@@ -136,7 +171,7 @@ public class SanityController : MonoBehaviour
         phobiaDarah = true;
     }
     public void getPhobiaSuara(){
-        enemySniper.setAttackRange(2.2f);
+        enemySniper.setAttackRange(3f);
         phobiaSuara = true;
     }
     public void getPhobiaKematian(){
@@ -146,7 +181,7 @@ public class SanityController : MonoBehaviour
     }
     public void getPhobiaBendaTajam(){
         enemyMeele.setMeeleSize(new Vector2(3f, 3f));
-        enemyMeele.setAttackSpeed(0.5f);
+        enemyMeele.setAttackSpeed(0.8f);
         phobiaBendaTajam = true;
     }
 

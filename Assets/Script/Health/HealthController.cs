@@ -51,7 +51,7 @@ public class HealthController : MonoBehaviour
         }else{
             timer = 0;
             if (gotDOT){
-                TakeDamage(3 * 10);
+                TakeDamage(10);
                 if (elapsedTime >= duration){
                     StopDOT();
                 }
@@ -59,6 +59,12 @@ public class HealthController : MonoBehaviour
         }
     }
     public void TakeDamage(float damageAmount){
+        if(GetComponent<PlayerMovement>()){
+            SanityController playerSanity = gameObject.GetComponent<SanityController>();
+            if(playerSanity.phobiaInvincibility){
+                return;
+            }
+        }
         if(_currentHealth == 0){
             return;
         }

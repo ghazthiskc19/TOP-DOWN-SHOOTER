@@ -49,6 +49,10 @@ public class AIEnemyMeele : EnemyMeele
             anim.SetLayerWeight(2, 1);
             anim.SetLayerWeight(0, 0);
         }
+        else if(!playerPhobia.phobiaDarah && anim.GetLayerWeight(2) == 1){
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(0, 1);
+        }
         if(notPatrol){
             idle = true;
             anim.SetBool("idle", true);
@@ -185,6 +189,7 @@ public class AIEnemyMeele : EnemyMeele
         else{
             return;
         }
+        SoundManager.instance.PlaySFX(SoundManager.instance.AttackMeele);
         GameObject enemyBullet = Instantiate(_bulletPrefabs, transform.position, Quaternion.LookRotation(Vector3.forward, target[0].position - transform.position));
         var bullet = enemyBullet.GetComponent<EnemyBulletMeele>();
         bullet.enemy = GetComponent<AIEnemyMeele>();
@@ -220,6 +225,7 @@ public class AIEnemyMeele : EnemyMeele
             return;
         }
         PlayerInformation.instance.currentKill++;
+        anim.SetBool("IsDead0", true);
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemyMeele>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
@@ -237,6 +243,7 @@ public class AIEnemyMeele : EnemyMeele
         else{
             return;
         }
+        SoundManager.instance.PlaySFX(SoundManager.instance.AttackMeele);
         Vector2 meeleDirection = (target[0].position - transform.position).normalized;
         float angle = Mathf.Atan2(meeleDirection.y, meeleDirection.x) * Mathf.Rad2Deg;
 

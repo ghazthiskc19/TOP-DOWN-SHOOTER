@@ -186,6 +186,7 @@ public class AIEnemyPistol : EnemyPistol
         else{
             return;
         }
+        SoundManager.instance.PlaySFX(SoundManager.instance.Pistol);
         GameObject enemyBullet = Instantiate(_bulletPrefabs, transform.position, Quaternion.LookRotation(Vector3.forward, target[0].position - transform.position));
         var bullet = enemyBullet.GetComponent<EnemyBulletPistol>();
         bullet.enemy = GetComponent<AIEnemyPistol>();
@@ -198,6 +199,7 @@ public class AIEnemyPistol : EnemyPistol
             return;
         }
         PlayerInformation.instance.currentKill++;
+        anim.SetBool("IsDead0", true);
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemyPistol>().enabled = false;
         GetComponent<Collider2D>().enabled = false;

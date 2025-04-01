@@ -45,9 +45,13 @@ public class AIEnemySniper : EnemySniper
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(playerPhobia.phobiaApi && anim.GetLayerWeight(0) == 1){
-            anim.SetLayerWeight(3, 1);
+        if(playerPhobia.phobiaSuara && anim.GetLayerWeight(0) == 1){
+            anim.SetLayerWeight(4, 1);
             anim.SetLayerWeight(0, 0);
+        }
+        else if(!playerPhobia.phobiaDarah && anim.GetLayerWeight(4) == 1){
+            anim.SetLayerWeight(4, 0);
+            anim.SetLayerWeight(0, 1);
         }
         if(notPatrol){
             idle = true;
@@ -186,11 +190,13 @@ public class AIEnemySniper : EnemySniper
         else{
             return;
         }
+        SoundManager.instance.PlaySFX(SoundManager.instance.Rifle);
         GameObject enemyBullet = Instantiate(_bulletPrefabs, transform.position, Quaternion.LookRotation(Vector3.forward, target[0].position - transform.position));
         var bullet = enemyBullet.GetComponent<EnemyBulletSniper>();
         bullet.enemy = GetComponent<AIEnemySniper>();
         Rigidbody2D _rbBullet = enemyBullet.GetComponent<Rigidbody2D>();
         _rbBullet.linearVelocity = (target[0].position - transform.position).normalized * _bulletSpeed;
+        SoundManager.instance.PlaySFX(SoundManager.instance.SniperEnemy);
     }
 
     void SoundAttack(){
@@ -204,6 +210,7 @@ public class AIEnemySniper : EnemySniper
         else{
             return;
         }
+        SoundManager.instance.PlaySFX(SoundManager.instance.SeranganSuaraEnemy);
         Vector2 meeleDirection = (target[0].position - transform.position).normalized;
         float angle = Mathf.Atan2(meeleDirection.y, meeleDirection.x) * Mathf.Rad2Deg;
 
@@ -227,6 +234,7 @@ public class AIEnemySniper : EnemySniper
 
     public void goDie(){
         PlayerInformation.instance.currentKill++;
+        anim.SetBool("IsDead0", true);
         anim.SetTrigger("IsDead");
         GetComponent<AIEnemySniper>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
