@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
 public class PlayMen : MonoBehaviour
@@ -174,5 +175,8 @@ public class PlayMen : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Exit Game");
+    }
+    public void resetScene(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
