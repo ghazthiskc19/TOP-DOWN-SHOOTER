@@ -8,7 +8,7 @@ public class PlayMen : MonoBehaviour
 {
     public CanvasGroup OverlayCanvasGroup;
     public CanvasGroup PlayMenuUI;
-    public GameObject batasAtas; 
+    public GameObject batasAtas;
     public GameObject batasBawah;
     public CanvasGroup[] overlay;
     public CanvasGroup[] overlayText;
@@ -19,21 +19,22 @@ public class PlayMen : MonoBehaviour
     private float normalOrthoSize = 5f;
     private float targetOrthoSize = 6f;
     public AnimationCurve animationCurve;
-    private  PlayerMovement pm;
+    private PlayerMovement pm;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _CMVM.m_Lens.OrthographicSize = targetOrthoSize;
         SoundManager.instance.PreloadBGM(SoundManager.instance.Ambience);
         pm = FindAnyObjectByType<PlayerMovement>();
-        foreach (CanvasGroup cg in overlay){
+        foreach (CanvasGroup cg in overlay)
+        {
             cg.alpha = 0f;
             cg.gameObject.SetActive(false);
         }
 
-        foreach(CanvasGroup text in overlayText)
+        foreach (CanvasGroup text in overlayText)
         {
-            text.alpha  = 0f;
+            text.alpha = 0f;
         }
     }
     public void FadeOutTransitionGone()
@@ -49,13 +50,16 @@ public class PlayMen : MonoBehaviour
         float startFOV = _CMVM.m_Lens.OrthographicSize;
         float endPOV = normalOrthoSize;
         LeanTween.value(startFOV, endPOV, duration).setEase(animationCurve)
-        .setOnUpdate((float val) => {
+        .setOnUpdate((float val) =>
+        {
             _CMVM.m_Lens.OrthographicSize = val;
-        }).setOnComplete(() => {
+        }).setOnComplete(() =>
+        {
             LeanTween.moveY(rtAtas, rtAtas.anchoredPosition.y + offsetAtas, duration);
             LeanTween.moveY(rtBawah, rtBawah.anchoredPosition.y - offsetBawah, duration);
             LeanTween.alphaCanvas(OverlayCanvasGroup, 0, duration)
-            .setOnComplete(() => {
+            .setOnComplete(() =>
+            {
                 SoundManager.instance.PlayBGM(SoundManager.instance.Ambience);
                 AfterTransition?.Invoke();
             });
@@ -70,7 +74,8 @@ public class PlayMen : MonoBehaviour
 
     private IEnumerator ShowLoadingAndStartTransition()
     {
-        foreach (CanvasGroup cg in overlay){
+        foreach (CanvasGroup cg in overlay)
+        {
             cg.gameObject.SetActive(true);
         }
 
@@ -82,9 +87,10 @@ public class PlayMen : MonoBehaviour
         LeanTween.alphaCanvas(overlayText[0], 0, 0.5f);
         yield return new WaitForSeconds(1f);
         LeanTween.alphaCanvas(overlay[0], 0, 0)
-        .setOnComplete(() => {
+        .setOnComplete(() =>
+        {
             overlay[0].gameObject.SetActive(false);
-            overlay[0].alpha = 1f; 
+            overlay[0].alpha = 1f;
         });
 
         // overlay kedua
@@ -95,9 +101,10 @@ public class PlayMen : MonoBehaviour
         LeanTween.alphaCanvas(overlayText[1], 0, 0.5f);
         yield return new WaitForSeconds(1f);
         LeanTween.alphaCanvas(overlay[1], 0, .5f)
-        .setOnComplete(() => {
+        .setOnComplete(() =>
+        {
             overlay[1].gameObject.SetActive(false);
-            overlay[1].alpha = 1f; 
+            overlay[1].alpha = 1f;
         });
 
         // overlay keduketiga
@@ -108,9 +115,10 @@ public class PlayMen : MonoBehaviour
         LeanTween.alphaCanvas(overlayText[2], 0, 0.5f);
         yield return new WaitForSeconds(1f);
         LeanTween.alphaCanvas(overlay[2], 0, .5f)
-        .setOnComplete(() => {
+        .setOnComplete(() =>
+        {
             overlay[2].gameObject.SetActive(false);
-            overlay[2].alpha = 1f; 
+            overlay[2].alpha = 1f;
         });
         StartCoroutine(FirstOverlayTransition());
     }
@@ -128,13 +136,16 @@ public class PlayMen : MonoBehaviour
         float startFOV = _CMVM.m_Lens.OrthographicSize;
         float endPOV = normalOrthoSize;
         LeanTween.value(startFOV, endPOV, duration).setEase(animationCurve)
-        .setOnUpdate((float val) => {
+        .setOnUpdate((float val) =>
+        {
             _CMVM.m_Lens.OrthographicSize = val;
-        }).setOnComplete(() => {
+        }).setOnComplete(() =>
+        {
             LeanTween.moveY(rtAtas, rtAtas.anchoredPosition.y + offsetAtas, duration);
             LeanTween.moveY(rtBawah, rtBawah.anchoredPosition.y - offsetBawah, duration);
             LeanTween.alphaCanvas(OverlayCanvasGroup, 0, duration)
-            .setOnComplete(() => {
+            .setOnComplete(() =>
+            {
                 SoundManager.instance.PlayBGM(SoundManager.instance.Ambience);
                 AfterTransition?.Invoke();
             });
@@ -142,7 +153,7 @@ public class PlayMen : MonoBehaviour
         _CMVM.OnTargetObjectWarped(pm.gameObject.transform, Vector3.zero);
     }
 
-        public void FadeOutTransitionAppear()
+    public void FadeOutTransitionAppear()
     {
         PlayMenuUI.gameObject.SetActive(true);
         LeanTween.alphaCanvas(PlayMenuUI, 1, 0);
@@ -157,13 +168,16 @@ public class PlayMen : MonoBehaviour
         float endPOV = normalOrthoSize;
 
         LeanTween.value(endPOV, startFOV, duration).setEase(animationCurve)
-        .setOnUpdate((float val) => {
+        .setOnUpdate((float val) =>
+        {
             _CMVM.m_Lens.OrthographicSize = val;
-        }).setOnComplete(() => {
+        }).setOnComplete(() =>
+        {
             LeanTween.moveY(rtAtas, rtAtas.anchoredPosition.y - offsetAtas, duration);
             LeanTween.moveY(rtBawah, rtBawah.anchoredPosition.y + offsetBawah, duration);
             LeanTween.alphaCanvas(OverlayCanvasGroup, 1, duration)
-            .setOnComplete(() => {
+            .setOnComplete(() =>
+            {
                 AfterTransition?.Invoke();
             });
         });
