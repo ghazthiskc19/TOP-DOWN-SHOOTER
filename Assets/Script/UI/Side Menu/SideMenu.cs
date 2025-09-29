@@ -18,6 +18,7 @@ public class SideMenu : MonoBehaviour
     private float targetOrthoSize = 4f;
     public GameObject overlayMenu;
     public AnimationCurve animationCurve;
+    private float timer = 0;
 
     void Start()
     {
@@ -26,7 +27,6 @@ public class SideMenu : MonoBehaviour
         {
             dof.active = false;
         }
-
         sideMenuCanvasGroup = sideMenuPanel.GetComponent<CanvasGroup>();
         sideMenuCanvasGroup.alpha = 0;
         sideMenuPanel.SetActive(false);
@@ -34,8 +34,10 @@ public class SideMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        timer += Time.unscaledDeltaTime;
+        if (Input.GetKeyDown(KeyCode.Escape) && timer > 1.2f)
         {
+            timer = 0;
             TogglePauseMenu();
         }
     }
